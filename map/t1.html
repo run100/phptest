@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>简单地图</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        body, button, input, select, textarea {
+            font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+        }
+        p{
+            width:603px;
+            padding-top:3px;
+            overflow:hidden;
+        }
+        .btn{
+            width:142px;
+        }
+    </style>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=V7ZBZ-LBERU-T2KVS-43IGA-5TFD2-7WFOJ"></script>
+
+</head>
+<body onload="init();">
+<div style="width:500px;height:500px" id="container"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+/*global.js*/
+String.prototype.format = function (){
+  var args = arguments;
+  var str = this.replace(/%7B([\s\S]+?)%7D/gi, function (m, i) { i = unescape(i); return '{{0}}'.format(i); });
+  return str.replace(/\{(\d+)\}/g, function (m, i) { return args[i]; });
+};
+</script>
+
+<script type="text/javascript">
+var MAPBAR_GOOGLEMAP_FIX_LAT = -0.0058;
+var MAPBAR_GOOGLEMAP_FIX_LNG = -0.0065;
+var map_vars = {
+  busline: {"id":54,"name":"126\u8def","full_name":"\u5408\u80a5\u516c\u4ea4126\u8def\u53bb\u7a0b","num_name":126,"direction":false,"lat":15.9554275,"lng":58.645653,"gps_code":"EBDBDAZHBUFAS","scale":13,"orig_stop_id":343,"dest_stop_id":351,"description":"<p>6:00-22:00<br \/>\u65e0\u4eba\u552e\u7968\uff0c\u666e\u901a\u8f66\u7968\u4ef71\u5143\uff0c\u7a7a\u8c03\u8f663\u30014\u300110\u300111\u6708\u7968\u4ef71\u5143\uff0c\u5176\u5b83\u6708\u4efd\u7968\u4ef72\u5143\uff0c\u5237\u5361\u6709\u6548<br \/>\u5408\u80a5\u516c\u4ea4\u96c6\u56e2\u6709\u9650\u516c\u53f8<\/p>","points":"[{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":117.290664,\"lat\":31.910855},{\"lng\":117.291306,\"lat\":31.907263},{\"lng\":117.282296,\"lat\":31.901963},{\"lng\":117.284395,\"lat\":31.896931},{\"lng\":117.284942,\"lat\":31.891391},{\"lng\":117.284516,\"lat\":31.885439},{\"lng\":117.285155,\"lat\":31.88138},{\"lng\":117.28521,\"lat\":31.87793},{\"lng\":117.282857,\"lat\":31.869887},{\"lng\":117.282114,\"lat\":31.866646},{\"lng\":117.28289,\"lat\":31.86169},{\"lng\":117.281457,\"lat\":31.855982},{\"lng\":117.276338,\"lat\":31.848693},{\"lng\":117.273268,\"lat\":31.844369},{\"lng\":117.25972,\"lat\":31.83684},{\"lng\":117.271377,\"lat\":31.836835},{\"lng\":117.267844,\"lat\":31.831159},{\"lng\":117.262645,\"lat\":31.82421},{\"lng\":117.258516,\"lat\":31.81885},{\"lng\":117.25339,\"lat\":31.814004},{\"lng\":117.249107,\"lat\":31.808531},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":117.23656,\"lat\":31.789824},{\"lng\":117.23146,\"lat\":31.78804},{\"lng\":117.223635,\"lat\":31.788357},{\"lng\":117.21641,\"lat\":31.78887},{\"lng\":117.21450805664,\"lat\":31.791220715008},{\"lng\":117.206908,\"lat\":31.786041},{\"lng\":0,\"lat\":0},{\"lng\":117.290664,\"lat\":31.910855},{\"lng\":117.291306,\"lat\":31.907263},{\"lng\":117.28235721588,\"lat\":31.893964549262},{\"lng\":117.282296,\"lat\":31.901963},{\"lng\":117.284395,\"lat\":31.896931},{\"lng\":117.284942,\"lat\":31.891391},{\"lng\":117.284516,\"lat\":31.885439},{\"lng\":117.285155,\"lat\":31.88138},{\"lng\":117.28521,\"lat\":31.87793},{\"lng\":117.282857,\"lat\":31.869887},{\"lng\":117.282114,\"lat\":31.866646},{\"lng\":117.28289,\"lat\":31.86169},{\"lng\":117.281457,\"lat\":31.855982},{\"lng\":117.276338,\"lat\":31.848693},{\"lng\":117.273268,\"lat\":31.844369},{\"lng\":117.25972,\"lat\":31.83684},{\"lng\":117.271377,\"lat\":31.836835},{\"lng\":117.267844,\"lat\":31.831159},{\"lng\":117.262645,\"lat\":31.82421},{\"lng\":117.258516,\"lat\":31.81885},{\"lng\":117.25339,\"lat\":31.814004},{\"lng\":117.249107,\"lat\":31.808531},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":117.23656,\"lat\":31.789824},{\"lng\":117.23146,\"lat\":31.78804},{\"lng\":117.223635,\"lat\":31.788357},{\"lng\":117.21641,\"lat\":31.78887},{\"lng\":117.21450805664,\"lat\":31.791220715008},{\"lng\":117.206908,\"lat\":31.786041},{\"lng\":0,\"lat\":0}]","updated_at":"2014-10-23 17:08:49"},
+  stops: [{"id":343,"name":"\u65b0\u534e\u5370\u5237\u516c\u53f8","code":"xinhuayinshuagongsi","jcode":"xhysgs","is_hidden":false,"lat":31.910855,"lng":117.290664,"gps_code":"ICFETVZVDRJUH"},{"id":272,"name":"\u5316\u5de5\u7814\u7a76\u9662","code":"huagongyanjiuyuan","jcode":"hgyjy","is_hidden":false,"lat":31.907263,"lng":117.291306,"gps_code":"ICFGHFZVDRISA"},{"id":218,"name":"\u534e\u5b5a\u5546\u4e1a\u5e7f\u573a","code":"huafushangyeguangchang","jcode":"hfsygc","is_hidden":false,"lat":31.901963,"lng":117.282296,"gps_code":"ICFFACZVDRDBJ"},{"id":144,"name":"\u6d77\u68e0\u82b1\u56ed","code":"haitanghuayuan","jcode":"hthy","is_hidden":false,"lat":31.896931,"lng":117.284395,"gps_code":"ICFHTSZVDRBWE"},{"id":143,"name":"\u516c\u4ea4\u56db\u516c\u53f8","code":"gongjiaosigongsi","jcode":"gjsgs","is_hidden":false,"lat":31.891391,"lng":117.284942,"gps_code":"ICFRCTZVDRAAB"},{"id":76,"name":"\u767d\u6c34\u575d","code":"baishuiba","jcode":"bsb","is_hidden":false,"lat":31.885439,"lng":117.284516,"gps_code":"ICFTFFZVDJUIC"},{"id":126,"name":"\u8499\u57ce\u8def\u6865","code":"mengchengluqiao","jcode":"mclq","is_hidden":false,"lat":31.88138,"lng":117.285155,"gps_code":"ICFVCRZVDJTCU"},{"id":125,"name":"\u5de5\u5927\u5317\u533a","code":"gongdabeiqv","jcode":"gdbq","is_hidden":false,"lat":31.87793,"lng":117.28521,"gps_code":"ICFWIJZVDJRUR"},{"id":246,"name":"\u57ce\u968d\u5e99","code":"chenghuangmiao","jcode":"chm","is_hidden":false,"lat":31.869887,"lng":117.282857,"gps_code":"ICGBTCZVDJGTJ"},{"id":160,"name":"\u4e09\u5b5d\u53e3","code":"sanxiaokou","jcode":"sxk","is_hidden":false,"lat":31.866646,"lng":117.282114,"gps_code":"ICGCSTZVDJFDS"},{"id":1074,"name":"\u8ff4\u9f99\u6865","code":"longqiao","jcode":"lq","is_hidden":false,"lat":31.86169,"lng":117.28289,"gps_code":"ICGEWJZVDJDJR"},{"id":10,"name":"\u7a3b\u9999\u697c","code":"daoxianglou","jcode":"dxl","is_hidden":false,"lat":31.855982,"lng":117.281457,"gps_code":"ICGGREZVDJATW"},{"id":9,"name":"\u5b89\u533b\u9644\u9662","code":"anyifuyuan","jcode":"ayfy","is_hidden":false,"lat":31.848693,"lng":117.276338,"gps_code":"ICGHHUZVDISWG"},{"id":8,"name":"\u4e2d\u56fd\u79d1\u6280\u5927\u5b66","code":"zhongguokejidaxue","jcode":"zgkjdx","is_hidden":false,"lat":31.844369,"lng":117.273268,"gps_code":"ICGHWSZVDIJBC"},{"id":21,"name":"\u673a\u7814\u6240","code":"jiyansuo","jcode":"jys","is_hidden":false,"lat":31.840716,"lng":117.271441,"gps_code":"ICGISCZVDIGVW"},{"id":7,"name":"\u5357\u4e03\u91cc\u7ad9","code":"nanqilizhan","jcode":"nqlz","is_hidden":false,"lat":31.836835,"lng":117.271377,"gps_code":"ICGRCWZVDIFGE"},{"id":6,"name":"\u6c5f\u6dee\u7ad9","code":"jianghuaizhan","jcode":"jhz","is_hidden":false,"lat":31.831159,"lng":117.267844,"gps_code":"ICGSAGZVDIBTS"},{"id":5,"name":"\u91d1\u4e1c\u8def\u53e3","code":"jindonglukou","jcode":"jdlk","is_hidden":false,"lat":31.82421,"lng":117.262645,"gps_code":"ICGSSEZVDHUAU"},{"id":1497,"name":"\u5efa\u7b51\u5927\u5b66\u5317\u533a","code":"jianzhudaxuebeiqu","jcode":"jzdxbq","is_hidden":false,"lat":31.81885,"lng":117.258516,"gps_code":""},{"id":89,"name":"\u59da\u516c\u5e99","code":"yaogongmiao","jcode":"ygm","is_hidden":false,"lat":31.814004,"lng":117.25339,"gps_code":"ICGTBEZVDHFHD"},{"id":90,"name":"\u5341\u4e94\u91cc\u6cb3","code":"shiwulihe","jcode":"swlh","is_hidden":false,"lat":31.808531,"lng":117.249107,"gps_code":"ICGTIRZVDHBRD"},{"id":345,"name":"\u67f4\u6cb9\u673a\u5382","code":"chaiyoujichang","jcode":"cyjc","is_hidden":false,"lat":0,"lng":0,"gps_code":""},{"id":173,"name":"\u4e94\u5341\u56db\u4e2d","code":"wushisizhong","jcode":"wssz","is_hidden":false,"lat":0,"lng":0,"gps_code":""},{"id":174,"name":"\u5341\u516b\u5c97","code":"shibagang","jcode":"sbg","is_hidden":false,"lat":0,"lng":0,"gps_code":""},{"id":1588,"name":"\u5927\u534e\u56fd\u9645\u6e2f","code":"dahuaguojigang","jcode":"dhgjg","is_hidden":false,"lat":31.789824,"lng":117.23656,"gps_code":""},{"id":346,"name":"\u660e\u73e0\u5e7f\u573a","code":"mingzhuguangchang","jcode":"mzgc","is_hidden":false,"lat":31.78804,"lng":117.23146,"gps_code":"ICGURHZVDGCSV"},{"id":347,"name":"\u5fbd\u56ed","code":"huiyuan","jcode":"hy","is_hidden":false,"lat":31.788357,"lng":117.223635,"gps_code":"ICGRHJZVDFWTV"},{"id":348,"name":"\u7e41\u7fe1\u8def\u53e3","code":"fanfeilukou","jcode":"fflk","is_hidden":false,"lat":31.78887,"lng":117.21641,"gps_code":"ICGHHEZVDFUCW"},{"id":1303,"name":"\u4e2d\u73af\u57ce","code":"zhonghuancheng","jcode":"zhc","is_hidden":false,"lat":31.791220715008,"lng":117.21450805664,"gps_code":""},{"id":350,"name":"\u77f3\u677e\u8def\u53e3","code":"shisonglukou","jcode":"sslk","is_hidden":false,"lat":31.786041,"lng":117.206908,"gps_code":"ICGEUHZVDFIFV"},{"id":351,"name":"\u5927\u5b66\u57ce","code":"daxuecheng","jcode":"dxc","is_hidden":false,"lat":31.784631,"lng":117.206858,"gps_code":"ICGFFWZVDFHTT"}],
+  holder: 'map'
+};
+map_vars.points= $.evalJSON(map_vars.busline.points) || [];
+
+var rmap_vars = {
+  busline: {"id":55,"name":"126\u8def","full_name":"\u5408\u80a5\u516c\u4ea4126\u8def\u56de\u7a0b","num_name":126,"direction":true,"lat":15.9554275,"lng":58.645653,"gps_code":"EBDBDAZHBUFAS","scale":13,"orig_stop_id":351,"dest_stop_id":343,"description":"<p>6:00-22:00<br \/>\u65e0\u4eba\u552e\u7968\uff0c\u666e\u901a\u8f66\u7968\u4ef71\u5143\uff0c\u7a7a\u8c03\u8f663\u30014\u300110\u300111\u6708\u7968\u4ef71\u5143\uff0c\u5176\u5b83\u6708\u4efd\u7968\u4ef72\u5143\uff0c\u5237\u5361\u6709\u6548<br \/>\u5408\u80a5\u516c\u4ea4\u96c6\u56e2\u6709\u9650\u516c\u53f8<\/p>","points":"[{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":117.206858,\"lat\":31.784631},{\"lng\":117.206908,\"lat\":31.786041},{\"lng\":117.21450805664,\"lat\":31.791220715008},{\"lng\":117.21641,\"lat\":31.78887},{\"lng\":117.223635,\"lat\":31.788357},{\"lng\":117.23146,\"lat\":31.78804},{\"lng\":117.23656,\"lat\":31.789824},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":117.249107,\"lat\":31.808531},{\"lng\":117.25339,\"lat\":31.814004},{\"lng\":117.258516,\"lat\":31.81885},{\"lng\":117.262645,\"lat\":31.82421},{\"lng\":117.267844,\"lat\":31.831159},{\"lng\":117.271377,\"lat\":31.836835},{\"lng\":117.273268,\"lat\":31.844369},{\"lng\":117.276338,\"lat\":31.848693},{\"lng\":117.281457,\"lat\":31.855982},{\"lng\":117.28289,\"lat\":31.86169},{\"lng\":117.282114,\"lat\":31.866646},{\"lng\":117.282857,\"lat\":31.869887},{\"lng\":117.28521,\"lat\":31.87793},{\"lng\":117.285155,\"lat\":31.88138},{\"lng\":117.284516,\"lat\":31.885439},{\"lng\":117.284942,\"lat\":31.891391},{\"lng\":117.284395,\"lat\":31.896931},{\"lng\":117.282296,\"lat\":31.901963},{\"lng\":117.291306,\"lat\":31.907263},{\"lng\":117.290664,\"lat\":31.910855},{\"lng\":117.206858,\"lat\":31.784631},{\"lng\":0,\"lat\":0},{\"lng\":117.206908,\"lat\":31.786041},{\"lng\":117.21450805664,\"lat\":31.791220715008},{\"lng\":117.21641,\"lat\":31.78887},{\"lng\":117.223635,\"lat\":31.788357},{\"lng\":117.23146,\"lat\":31.78804},{\"lng\":117.23656,\"lat\":31.789824},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":0,\"lat\":0},{\"lng\":117.249107,\"lat\":31.808531},{\"lng\":117.25339,\"lat\":31.814004},{\"lng\":117.258516,\"lat\":31.81885},{\"lng\":117.262645,\"lat\":31.82421},{\"lng\":117.267844,\"lat\":31.831159},{\"lng\":117.271377,\"lat\":31.836835},{\"lng\":117.273268,\"lat\":31.844369},{\"lng\":117.276338,\"lat\":31.848693},{\"lng\":117.281457,\"lat\":31.855982},{\"lng\":117.28289,\"lat\":31.86169},{\"lng\":117.282114,\"lat\":31.866646},{\"lng\":117.282857,\"lat\":31.869887},{\"lng\":117.28521,\"lat\":31.87793},{\"lng\":117.285155,\"lat\":31.88138},{\"lng\":117.284516,\"lat\":31.885439},{\"lng\":117.284942,\"lat\":31.891391},{\"lng\":117.284395,\"lat\":31.896931},{\"lng\":117.282296,\"lat\":31.901963},{\"lng\":117.291306,\"lat\":31.907263},{\"lng\":117.290664,\"lat\":31.910855}]","updated_at":"2014-10-23 17:09:38"},
+  stops: [{"id":351,"name":"\u5927\u5b66\u57ce","code":"daxuecheng","jcode":"dxc","is_hidden":false,"lat":31.784631,"lng":117.206858,"gps_code":"ICGFFWZVDFHTT"},{"id":350,"name":"\u77f3\u677e\u8def\u53e3","code":"shisonglukou","jcode":"sslk","is_hidden":false,"lat":31.786041,"lng":117.206908,"gps_code":"ICGEUHZVDFIFV"},{"id":1303,"name":"\u4e2d\u73af\u57ce","code":"zhonghuancheng","jcode":"zhc","is_hidden":false,"lat":31.791220715008,"lng":117.21450805664,"gps_code":""},{"id":348,"name":"\u7e41\u7fe1\u8def\u53e3","code":"fanfeilukou","jcode":"fflk","is_hidden":false,"lat":31.78887,"lng":117.21641,"gps_code":"ICGHHEZVDFUCW"},{"id":347,"name":"\u5fbd\u56ed","code":"huiyuan","jcode":"hy","is_hidden":false,"lat":31.788357,"lng":117.223635,"gps_code":"ICGRHJZVDFWTV"},{"id":346,"name":"\u660e\u73e0\u5e7f\u573a","code":"mingzhuguangchang","jcode":"mzgc","is_hidden":false,"lat":31.78804,"lng":117.23146,"gps_code":"ICGURHZVDGCSV"},{"id":1588,"name":"\u5927\u534e\u56fd\u9645\u6e2f","code":"dahuaguojigang","jcode":"dhgjg","is_hidden":false,"lat":31.789824,"lng":117.23656,"gps_code":""},{"id":174,"name":"\u5341\u516b\u5c97","code":"shibagang","jcode":"sbg","is_hidden":false,"lat":0,"lng":0,"gps_code":""},{"id":173,"name":"\u4e94\u5341\u56db\u4e2d","code":"wushisizhong","jcode":"wssz","is_hidden":false,"lat":0,"lng":0,"gps_code":""},{"id":345,"name":"\u67f4\u6cb9\u673a\u5382","code":"chaiyoujichang","jcode":"cyjc","is_hidden":false,"lat":0,"lng":0,"gps_code":""},{"id":90,"name":"\u5341\u4e94\u91cc\u6cb3","code":"shiwulihe","jcode":"swlh","is_hidden":false,"lat":31.808531,"lng":117.249107,"gps_code":"ICGTIRZVDHBRD"},{"id":89,"name":"\u59da\u516c\u5e99","code":"yaogongmiao","jcode":"ygm","is_hidden":false,"lat":31.814004,"lng":117.25339,"gps_code":"ICGTBEZVDHFHD"},{"id":1497,"name":"\u5efa\u7b51\u5927\u5b66\u5317\u533a","code":"jianzhudaxuebeiqu","jcode":"jzdxbq","is_hidden":false,"lat":31.81885,"lng":117.258516,"gps_code":""},{"id":5,"name":"\u91d1\u4e1c\u8def\u53e3","code":"jindonglukou","jcode":"jdlk","is_hidden":false,"lat":31.82421,"lng":117.262645,"gps_code":"ICGSSEZVDHUAU"},{"id":6,"name":"\u6c5f\u6dee\u7ad9","code":"jianghuaizhan","jcode":"jhz","is_hidden":false,"lat":31.831159,"lng":117.267844,"gps_code":"ICGSAGZVDIBTS"},{"id":7,"name":"\u5357\u4e03\u91cc\u7ad9","code":"nanqilizhan","jcode":"nqlz","is_hidden":false,"lat":31.836835,"lng":117.271377,"gps_code":"ICGRCWZVDIFGE"},{"id":8,"name":"\u4e2d\u56fd\u79d1\u6280\u5927\u5b66","code":"zhongguokejidaxue","jcode":"zgkjdx","is_hidden":false,"lat":31.844369,"lng":117.273268,"gps_code":"ICGHWSZVDIJBC"},{"id":9,"name":"\u5b89\u533b\u9644\u9662","code":"anyifuyuan","jcode":"ayfy","is_hidden":false,"lat":31.848693,"lng":117.276338,"gps_code":"ICGHHUZVDISWG"},{"id":10,"name":"\u7a3b\u9999\u697c","code":"daoxianglou","jcode":"dxl","is_hidden":false,"lat":31.855982,"lng":117.281457,"gps_code":"ICGGREZVDJATW"},{"id":1074,"name":"\u8ff4\u9f99\u6865","code":"longqiao","jcode":"lq","is_hidden":false,"lat":31.86169,"lng":117.28289,"gps_code":"ICGEWJZVDJDJR"},{"id":160,"name":"\u4e09\u5b5d\u53e3","code":"sanxiaokou","jcode":"sxk","is_hidden":false,"lat":31.866646,"lng":117.282114,"gps_code":"ICGCSTZVDJFDS"},{"id":246,"name":"\u57ce\u968d\u5e99","code":"chenghuangmiao","jcode":"chm","is_hidden":false,"lat":31.869887,"lng":117.282857,"gps_code":"ICGBTCZVDJGTJ"},{"id":125,"name":"\u5de5\u5927\u5317\u533a","code":"gongdabeiqv","jcode":"gdbq","is_hidden":false,"lat":31.87793,"lng":117.28521,"gps_code":"ICFWIJZVDJRUR"},{"id":126,"name":"\u8499\u57ce\u8def\u6865","code":"mengchengluqiao","jcode":"mclq","is_hidden":false,"lat":31.88138,"lng":117.285155,"gps_code":"ICFVCRZVDJTCU"},{"id":76,"name":"\u767d\u6c34\u575d","code":"baishuiba","jcode":"bsb","is_hidden":false,"lat":31.885439,"lng":117.284516,"gps_code":"ICFTFFZVDJUIC"},{"id":143,"name":"\u516c\u4ea4\u56db\u516c\u53f8","code":"gongjiaosigongsi","jcode":"gjsgs","is_hidden":false,"lat":31.891391,"lng":117.284942,"gps_code":"ICFRCTZVDRAAB"},{"id":144,"name":"\u6d77\u68e0\u82b1\u56ed","code":"haitanghuayuan","jcode":"hthy","is_hidden":false,"lat":31.896931,"lng":117.284395,"gps_code":"ICFHTSZVDRBWE"},{"id":218,"name":"\u534e\u5b5a\u5546\u4e1a\u5e7f\u573a","code":"huafushangyeguangchang","jcode":"hfsygc","is_hidden":false,"lat":31.901963,"lng":117.282296,"gps_code":"ICFFACZVDRDBJ"},{"id":272,"name":"\u5316\u5de5\u7814\u7a76\u9662","code":"huagongyanjiuyuan","jcode":"hgyjy","is_hidden":false,"lat":31.907263,"lng":117.291306,"gps_code":"ICFGHFZVDRISA"},{"id":343,"name":"\u65b0\u534e\u5370\u5237\u516c\u53f8","code":"xinhuayinshuagongsi","jcode":"xhysgs","is_hidden":false,"lat":31.910855,"lng":117.290664,"gps_code":"ICFETVZVDRJUH"}],
+  holder: 'rmap'
+};
+rmap_vars.points= $.evalJSON(rmap_vars.busline.points) || [];
+
+function init_map(vars){
+
+    var points = vars.points;
+    points = $.map(points, function(point){ return new qq.maps.LatLng(point.lat + MAPBAR_GOOGLEMAP_FIX_LAT, point.lng + MAPBAR_GOOGLEMAP_FIX_LNG ); });
+    var lat = vars.busline.lat || 31.88607;
+    var lng = vars.busline.lng || 117.288437;
+    var zoom = 12,map;
+    var center = new qq.maps.LatLng(lat, lng);
+
+    var mapOptions = {
+        zoom: zoom,
+        center: center,
+        mapTypeId: qq.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new qq.maps.Map(document.getElementById(vars.holder), mapOptions);
+
+    for(var i in vars.stops){
+       var site = vars.stops[i];
+       var j = parseInt(i)+1;
+       var latLng = new qq.maps.LatLng(site.lat + MAPBAR_GOOGLEMAP_FIX_LAT, site.lng + MAPBAR_GOOGLEMAP_FIX_LNG);
+       var marker = new qq.maps.Marker({
+       	 position : latLng,
+         map : map,
+         title : site.name,
+         icon : "/qqMaps/images/num/{0}.gif".format(j)
+       });
+
+       var label = new qq.maps.Label({
+          position : latLng,
+          map : map,
+          content : site.name,
+          offset : new qq.maps.Size(14,-30)
+       });
+
+   }
+}
+
+var IsNullOrEmpty = isNull = isEmpty = function (obj) {
+  return !isset(obj) || obj === null || obj === '';
+};
+
+function isset(val) {
+  return typeof(val) != 'undefined';
+}
+
+function auto_tabs(t) {
+  $('{0}.auto-tabs .tabs'.format(isEmpty(t) ? '' : t)).each(function () {
+    var target = $(this);
+    var con = $(this).siblings('.tabcontainer');
+    $('li a[target!=_blank]', target).attr('target', '_self').each(function (i) {
+      $(this).click(function () {
+        $('li', target).removeClass('current');
+        $(this).parents('li').addClass('current');
+        $('ul, ol, form, .tab-body'.format(i), con).removeClass('current');
+        $('ul:eq({0}), ol:eq({0}), form:eq({0}), .tab-body:eq({0})'.format(i), con).addClass('current');
+        return false;
+      });
+    });
+  });
+}
+
+init_map(map_vars);
+$('#maps .tab-body').css('display', '');
+auto_tabs('#maps');
+$('#maps .tabs .current a').click();
+$("#downLine").click(function(){init_map(rmap_vars);});
+</script>
