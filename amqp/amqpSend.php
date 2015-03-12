@@ -6,7 +6,7 @@
 $exchangeName = 'demo';
 $queueName = 'hello';
 $routeKey = 'hello';
-$message = 'Hello World!';
+$message = 'Hello World!'.date('Y-m-d H:i:s', time());
 
 $connection = new AMQPConnection(array('host' => '127.0.0.1', 'port' => '5672', 'vhost' => '/', 'login' => 'guest', 'password' => 'guest'));
 $connection->connect() or die("Cannot connect to the broker!\n");
