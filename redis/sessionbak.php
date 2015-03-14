@@ -8,7 +8,7 @@ if(!defined('REDIS_HOST')){
 
 class sessRedisCls
 {
-    static $redisHandle;
+
 
     public static function getRedisConn($alive_check = 0){
         static $redis;
@@ -42,39 +42,23 @@ class sessRedisCls
     public function __construct(){}
 
     public function open($path, $name){
-
-        if(is_resource(self::$redisHandle)){
-            return self::$redisHandle;
-        }
-
-
-        self::$redisHandle = self::getRedisConn(false);
-        if(!self::$redisHandle){
-            return false;
-        }
-
         return true;
     }
 
     public function close(){
-        #return true;
-        if(self::$redisHandle){
-            return self::$redisHandle->close();
-        }
-        return false;
+        return true;
     }
 
     public function read($id){
         $i = 10;
-        //$redis = self::getRedisConn(false);
+        $redis = self::getRedisConn(false);
         $key = $this->getKey($id);
-
         while($i-- > 0){
             try{
-                return self::$redisHandle->get($key);
+                return $redis->get($key);
             }catch(RedisException $e){
                 usleep(50000);
-                self::$redisHandle = self::getRedisConn(true);
+                $redis = self::getRedisConn(true);
             }
 
         }
@@ -82,19 +66,19 @@ class sessRedisCls
 
     public function write($id, $data){
         $i = 10;
-        #$redis = self::getRedisConn(false);
+        $redis = self::getRedisConn(false);
 
         #尝试写入10次
         while($i-- > 0){
             try{
                 $key = self::getKey($id);
-                self::$redisHandle->set($key, $data);
-                self::$redisHandle->expire($key, ini_get('session.gc_maxlifetime'));
+                $redis->set($key, $data);
+                $redis->expire($key, ini_get('session.gc_maxlifetime'));
                 return;
             }catch (RedisException $e){
                 usleep(5000);
                 # 尝试重新链接
-                self::$redisHandle = self::getRedisConn(true);
+                $redis = self::getRedisConn(true);
             }
         }
     }
@@ -102,29 +86,29 @@ class sessRedisCls
 
     public function destory($id){
         $i = 10;
-        #$redis = self::getRedisConn(false);
+        $redis = self::getRedisConn(false);
 
         while($i -- > 0){
             try{
-                self::$redisHandle->delete($this->getKey($id));
+                $redis->delete($this->getKey($id));
                 return;
             }catch (RedisException $e){
                 usleep(50000);
-                self::$redisHandle = self::getConnection(true);
+                $redis = self::getConnection(true);
             }
         }
     }
 
     public function gc($lifetime){
         $i = 10;
-        #$redis = self::getRedisConn(false);
+        $redis = self::getRedisConn(false);
 
         try{
-            self::$redisHandle->keys('session_redis*');
+            $redis->keys('session_redis*');
 
         }catch(RedisException $e){
             usleep(50000);
-            self::$redisHandle = self::getRedisConn(true);
+            $redis = self::getRedisConn(true);
 
         }
         return true;
