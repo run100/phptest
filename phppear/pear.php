@@ -35,14 +35,15 @@ $user = posix_getpwnam('daemon');
 
 require_once "System/Daemon.php";
 
-System_Daemon::writeAutoRun();
+#System_Daemon::writeAutoRun();
 
 System_Daemon::setOption("appName", "check_daemon");
 System_Daemon::setOption("authorEmail", "727271755@qq.com");
 
 // System_Daemon::setOption("appDir", dirname(__FILE__));
-System_Daemon::log(System_Daemon::LOG_INFO, "Daemon not yet started so "."this will be written on-screen");
+#System_Daemon::log(System_Daemon::LOG_INFO, "Daemon not yet started so "."this will be written on-screen");
 
+echo  System_Daemon::getOption("logLocation"); exit;
 // Spawn Deamon!
 // 開始產生為 Daemon 的部份
 System_Daemon::start();

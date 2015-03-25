@@ -1,0 +1,21 @@
+[Mar 23 22:08:19]   notice: unable to forge startup script. daemon_filepath: /home/users/chromev/phptest/phppear/init.php, needs to be executable first
+[Mar 23 22:08:19]  warning: Unable to create startup file [l:1134]
+[Mar 24 08:59:53]   notice: unable to forge startup script. daemon_filepath: /home/users/chromev/phptest/phppear/init.php, needs to be executable first
+[Mar 24 08:59:53]  warning: Unable to create startup file [l:1134]
+[Mar 24 09:03:23]   notice: unable to forge startup script. daemon_filepath: /home/users/chromev/phptest/phppear/init.php, needs to be executable first
+[Mar 24 09:03:23]  warning: Unable to create startup file [l:1134]
+[Mar 24 09:09:00]   notice: unable to forge startup script. daemon_filepath: /home/users/chromev/phptest/phppear/init.php, needs to be executable first
+[Mar 24 09:09:00]  warning: Unable to create startup file [l:1134]
+[Mar 24 09:09:09]   notice: unable to forge startup script. daemon_filepath: /home/users/chromev/phptest/phppear/init.php, needs to be executable first
+[Mar 24 09:09:09]  warning: Unable to create startup file [l:1134]
+[Mar 24 09:10:34]   notice: Startup written to '/etc/rc.d/init.d/queue_solr'
+[Mar 24 09:16:45]   notice: Startup was already written
+[Mar 24 09:16:45]   notice: Startup was already written
+[Mar 24 09:17:32]   notice: Startup written to '/etc/rc.d/init.d/queue_solr'
+[Mar 24 09:17:32]   notice: Startup was already written
+[Mar 24 09:29:02]   notice: Startup written to '/etc/rc.d/init.d/queue_solr'
+[Mar 24 09:29:02]   notice: Startup was already written
+[Mar 24 09:35:51]   notice: Startup was already written
+[Mar 24 09:36:07]   notice: Startup was already written
+[Mar 24 09:37:27]   notice: Startup was already written
+[Mar 24 09:40:46]   notice: Startup written to '/etc/rc.d/init.d/queue_solr'
