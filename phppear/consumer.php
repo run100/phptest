@@ -11,7 +11,7 @@ abstract class amqpConsumer
     abstract public static function doTask($message);
 }
 
-class solrConsumer extends amqpConsumer
+class SolrConsumer extends amqpConsumer
 {
     static $fp = null;
     static $logName = 'solr';
@@ -23,7 +23,7 @@ class solrConsumer extends amqpConsumer
     public static function doTask($msg){
         set_time_limit(0);
 
-        self::log2('test'.uniqid(), array('a'=>1, 'b'=>2));
+        self::log2('test'.uniqid(), $msg);
         try{
             $error = null;
             switch($msg['event']){
@@ -43,17 +43,23 @@ class solrConsumer extends amqpConsumer
             mkdir($dir, 0777, 1);
         }
 
+
         $fileExists = file_exists($log);
-        if(!is_writable($dir) || ($fileExists && !is_writable($fileExists))){
+        if(!$fileExists){
+            touch($log);
+        }
+        chmod($log, 0777);
+
+        if(!is_writable($dir)){
+            die("目录不可写");
+        }
+        if( ($fileExists && !is_writable($log)) ){
             $info = sprintf('Unable to open the log file "%s" for writing', $log);
-            die($info);
+            die($info."\r\n");
         }
 
         self::$fp = fopen($log, 'a');
-        if (!$fileExists)
-        {
-            chmod($log, 0666);
-        }
+
     }
 
     public static function log($message)
@@ -77,4 +83,4 @@ class solrConsumer extends amqpConsumer
 }
 
 
-solrConsumer::initialize('solr');
+SolrConsumer::initialize('solr');

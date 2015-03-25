@@ -78,6 +78,52 @@ if (in_array('--write-initd', $argv)) {
     die;
 }
 
+// 加载类文件
+require_once 'amqpcls.php';
+require_once 'consumer.php';
+
+$q = AmqpCls::getQueue($queue_name);
+$consumer = AmqpCls::getConsumer($queue_name);
+
+/*
+exit();*/
+
+while (!System_Daemon::isDying()) {
+    try{
+        //consume the queue
+        $message = AmqpCls::getMessage($q);
+        print_r($message);
+
+        if (is_null($message)) {
+            System_Daemon::iterate(1);
+            continue;
+        }
+
+        if ($fg) {
+            print_r($message);
+        }
+
+        if ($debug) {
+            System_Daemon::debug(my_print_r($message));
+            $timer = microtime(true);
+        }
+
+        $result = $consumer::doTask($message); //process the message
+
+        if ($debug) {
+            $time = microtime(true) - $timer;
+            System_Daemon::debug($time."s");
+            if ($result !== null) {
+                System_Daemon::debug($result);
+            }
+
+        }
+    } catch(Exception $e){
+        System_Daemon::err($e->getMessage());
+        System_Daemon::err($e->getTraceAsString());
+        break;
+    }
+}
 
 function usage()
 {
