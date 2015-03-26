@@ -132,6 +132,9 @@ class AmqpCls
     public static function getMessage(AMQPQueue $queue){
         $result = $queue->get();
         #var_dump($result);
+        if(!is_object($result)){
+            return null;
+        }
         if( $result->getBody() == ''){
             return null;
         }

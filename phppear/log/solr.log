@@ -19,3 +19,22 @@
 [Mar 24 09:36:07]   notice: Startup was already written
 [Mar 24 09:37:27]   notice: Startup was already written
 [Mar 24 09:40:46]   notice: Startup written to '/etc/rc.d/init.d/queue_solr'
+[Mar 25 15:25:11]   notice: Startup written to '/etc/rc.d/init.d/queue_solr'
+[Mar 25 20:06:41]   notice: Startup written to '/etc/rc.d/init.d/queue_solr'
+[Mar 25 21:13:59]   notice: Starting queue_solr daemon, output in: '/home/users/chromev/phptest/phppear/log/solr.log'
+[Mar 25 21:13:59]    debug: forking queue_solr daemon
+[Mar 25 21:13:59]    debug: Ending queue_solr parent process
+[Mar 25 21:14:00]     info: Changed identify to 'daemon':'daemon'
+[Mar 25 21:14:29]      err: Connection reset by peer [l:132]
+[Mar 25 21:14:29]      err: #0 /home/users/chromev/phptest/phppear/amqpcls.php(133): AMQPQueue->get()
+#1 /home/users/chromev/phptest/phppear/init.php(104): AmqpCls::getMessage(Object(AMQPQueue))
+#2 NONEXISTING_VAR_OPTIONS.main [l:133]
+[Mar 25 21:38:54]   notice: Starting queue_solr daemon, output in: '/home/users/chromev/phptest/phppear/log/solr.log'
+[Mar 25 21:38:54]  warning: Orphaned pidfile found and removed: /var/run/queue_solr/queue_solr.pid. Previous process crashed? [l:1237]
+[Mar 25 21:38:54]    debug: forking queue_solr daemon
+[Mar 25 21:38:54]    debug: Ending queue_solr parent process
+[Mar 25 21:38:54]     info: Changed identify to 'daemon':'daemon'
+[Mar 25 21:39:24]      err: Connection reset by peer [l:132]
+[Mar 25 21:39:24]      err: #0 /home/users/chromev/phptest/phppear/amqpcls.php(133): AMQPQueue->get()
+#1 /home/users/chromev/phptest/phppear/init.php(104): AmqpCls::getMessage(Object(AMQPQueue))
+#2 NONEXISTING_VAR_OPTIONS.main [l:133]

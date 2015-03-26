@@ -6,6 +6,8 @@
  * Desc: 
  */
 
+require_once 'mongoLogCls.php';
+
 abstract class amqpConsumer
 {
     abstract public static function doTask($message);
@@ -23,11 +25,15 @@ class SolrConsumer extends amqpConsumer
     public static function doTask($msg){
         set_time_limit(0);
 
-        self::log2('test'.uniqid(), $msg);
+        //self::log2('test'.uniqid(), $msg);
+        MongoLogCls::logSolr( $msg);
         try{
             $error = null;
             switch($msg['event']){
                 case 'error':
+                    break;
+                case 'insert':
+
                     break;
             }
         }catch(Exception $e){

@@ -41,7 +41,7 @@ if (posix_getuid() != 0) {
 
 $user = posix_getpwnam('daemon');
 
-print_r($user);
+//print_r($user);
 
 require_once "System/Daemon.php";
 
@@ -85,6 +85,16 @@ require_once 'consumer.php';
 $q = AmqpCls::getQueue($queue_name);
 $consumer = AmqpCls::getConsumer($queue_name);
 
+if (!in_array('--fg', $argv)) {
+    //Run in foreground
+    System_Daemon::start();
+    $fg = false;
+} else {
+    $fg = true;
+}
+
+$debug = in_array('--debug', $argv);
+
 /*
 exit();*/
 
@@ -92,7 +102,7 @@ while (!System_Daemon::isDying()) {
     try{
         //consume the queue
         $message = AmqpCls::getMessage($q);
-        print_r($message);
+        #print_r($message);
 
         if (is_null($message)) {
             System_Daemon::iterate(1);

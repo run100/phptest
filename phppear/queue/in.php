@@ -17,9 +17,17 @@ require_once WEB_ROOT_DIR.DIRECTORY_SEPARATOR.'amqpcls.php';
 // 写入队列
 $queue = 'solr';
 $amqp = AmqpCls::getConnection($queue);
-AmqpCls::put($queue, array('event'=>'insert', 'data'=>array('a'=>1,'b'=>uniqid())));
 
-$q = AmqpCls::getQueue('solr');
-$message = AmqpCls::getMessage($q);
-print_r($message); exit;
+$i = 1;
+while(true){
+    $data = array('a'=>date('Y-m-d H:i:s', time()),'b'=>uniqid(), 'i'=>$i);
+    AmqpCls::put($queue, array('event'=>'insert',  'data'=>$data));
+
+    echo $i."\r\n";
+    $i++;
+    /*$q = AmqpCls::getQueue('solr');
+    $message = AmqpCls::getMessage($q);
+    print_r($message); exit;*/
+}
+
 
