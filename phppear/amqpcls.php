@@ -69,8 +69,9 @@ class AmqpCls
             $channel = new AMQPChannel($con);
             $exchange = new AMQPExchange($channel);
             $exchange->setName(self::$exchangeName);
+            // fanout交换器很简单，你可能从名字上就能猜测出来，它把消息发送给它所知道的所有队列
             $exchange->setType(AMQP_EX_TYPE_FANOUT);
-            $exchange->setFlags(AMQP_DURABLE); //持久化
+            #$exchange->setFlags(AMQP_DURABLE); //持久化
             #$exchange->declare();
 
 
@@ -78,8 +79,10 @@ class AmqpCls
 
             $queue = new AMQPQueue($channel);
             $queue->setName($queueName);
-            //$queue->declare(AMQP_DURABLE);
+            //$queue->declare(AMQP_DURABLE); // 持久化
             //$queue->bind(self::$exchangeName, self::$routeKey);
+            //$queue->setFlags(AMQP_EXCLUSIVE); //
+            $queue->declare();
 
             $exchange->publish(serialize($message), self::$routeKey);
 
@@ -111,11 +114,17 @@ class AmqpCls
             $channel = new AMQPChannel($con);
             $exchange = new AMQPExchange($channel);
             $exchange->setName(self::$exchangeName);
+            $exchange->setType(AMQP_EX_TYPE_FANOUT);
+            $exchange->setFlags(AMQP_DURABLE); //持久化
+            $exchange->declare();
 
             $q = new AMQPQueue($channel);
             $q->setName($queueName);
+            #$q->setFlags(AMQP_EXCLUSIVE);
             $q->declare();
+
             $q->bind(self::$exchangeName, self::$routeKey);
+
         }catch(AMQPConnectionException $e){
             var_dump($e);
             exit();
@@ -130,7 +139,7 @@ class AmqpCls
      * @return mixed|null
      */
     public static function getMessage(AMQPQueue $queue){
-        $result = $queue->get();
+        $result = $queue->get(AMQP_AUTOACK);
         #var_dump($result);
         if(!is_object($result)){
             return null;
@@ -139,7 +148,13 @@ class AmqpCls
             return null;
         }
         return unserialize($result->getBody());
+        #return date('Y-m-d H:i:s', time());
         // return $queue->consume("callback");
+    }
+
+    public static function getMessage2(AMQPQueue $queue){
+        $msg =  $queue->consume('qcallback');
+        return $msg;
     }
 
 
@@ -154,6 +169,9 @@ class AmqpCls
 
 }
 
-function callback($envelope, $queue){
-    return $envelope->getBody();
+function qcallback($envelope, $queue){
+    $msg = $envelope->getBody();
+    var_dump($msg);
+    $queue->ack($envelope->getDeliveryTag());
+    return $msg;
 }

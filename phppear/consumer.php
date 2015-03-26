@@ -19,7 +19,7 @@ class SolrConsumer extends amqpConsumer
     static $logName = 'solr';
 
     public static function initialize(){
-        self::logInit();
+        #self::logInit();
     }
 
     public static function doTask($msg){
@@ -27,7 +27,7 @@ class SolrConsumer extends amqpConsumer
 
         //self::log2('test'.uniqid(), $msg);
         MongoLogCls::logSolr( $msg);
-        try{
+        /*try{
             $error = null;
             switch($msg['event']){
                 case 'error':
@@ -38,7 +38,7 @@ class SolrConsumer extends amqpConsumer
             }
         }catch(Exception $e){
 
-        }
+        }*/
     }
 
     public static  function logInit(){
@@ -54,7 +54,7 @@ class SolrConsumer extends amqpConsumer
         if(!$fileExists){
             touch($log);
         }
-        chmod($log, 0777);
+        #chmod($log, 0777);
 
         if(!is_writable($dir)){
             die("目录不可写");

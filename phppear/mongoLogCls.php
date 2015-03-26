@@ -56,21 +56,22 @@ class MongoLogCls
     }
 
     public static function logSolr( $msg){
+        $data = $msg['data'];
         $log = array(
-            'i'    => $msg['i'],
+            'i'    => $data['i'],
             'type' => $msg['event'],
             'time' => date('Y-m-d H:i:s'),
-            'a'  => $msg['a'],
-            'b'  => $msg['b']
+            'a'  => $data['a'],
+            'b'  => $data['b']
         );
         MongoCls::getDB()->log->solr->insert($log);
     }
 }
 
-MongoLogCls::logUser(1, 'insert');
+#MongoLogCls::logUser(1, 'insert');
 
 #$rs = MongoCls::getCollection('log.user')->findOne(array('uid'=>1));
-var_dump($rs);
+#var_dump($rs);
 
 /*
 

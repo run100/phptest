@@ -7,7 +7,7 @@
  * File: in.php
  * Desc: 
  */
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 
 define('WEB_ROOT_DIR', realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR));
@@ -19,15 +19,19 @@ $queue = 'solr';
 $amqp = AmqpCls::getConnection($queue);
 
 $i = 1;
-while(true){
+#while(true){
+for($i=1;$i<1000000;$i++){
     $data = array('a'=>date('Y-m-d H:i:s', time()),'b'=>uniqid(), 'i'=>$i);
     AmqpCls::put($queue, array('event'=>'insert',  'data'=>$data));
 
     echo $i."\r\n";
-    $i++;
+    #$i++;
+    /*if($i>=10){
+        break;
+    }*/
     /*$q = AmqpCls::getQueue('solr');
     $message = AmqpCls::getMessage($q);
-    print_r($message); exit;*/
+    print_r($message);*/
 }
 
 

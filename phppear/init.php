@@ -2,7 +2,8 @@
 
 <?php
 # 参数solr  --write-initd
-error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+#error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 define('SF_DEBUG', true);
 
@@ -82,8 +83,7 @@ if (in_array('--write-initd', $argv)) {
 require_once 'amqpcls.php';
 require_once 'consumer.php';
 
-$q = AmqpCls::getQueue($queue_name);
-$consumer = AmqpCls::getConsumer($queue_name);
+
 
 if (!in_array('--fg', $argv)) {
     //Run in foreground
@@ -94,6 +94,10 @@ if (!in_array('--fg', $argv)) {
 }
 
 $debug = in_array('--debug', $argv);
+
+
+$q = AmqpCls::getQueue($queue_name);
+$consumer = AmqpCls::getConsumer($queue_name);
 
 /*
 exit();*/
@@ -110,7 +114,7 @@ while (!System_Daemon::isDying()) {
         }
 
         if ($fg) {
-            print_r($message);
+            print_r($message."\r\n"); // ['data']['i']
         }
 
         if ($debug) {
@@ -140,4 +144,9 @@ function usage()
     global $argv;
     echo 'Usage: ' . $argv[0] . ' queue_name [--write-initd] [--fg]' . "\n";
     die();
+}
+
+function my_print_r($array)
+{
+    return preg_replace("/\s+/", " ", str_replace("\n", '', print_r($array, true)));
 }
