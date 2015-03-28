@@ -23,59 +23,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="init.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/phppear/init.php">
+      <file leaf-file-name="solr.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/solr/solr.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="9" selection-start="2326" selection-end="2326" vertical-scroll-proportion="0.5415929" vertical-offset="1566" max-vertical-offset="2664">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="amqpcls.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/phppear/amqpcls.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="135" column="24" selection-start="3461" selection-end="3461" vertical-scroll-proportion="-13.333333" vertical-offset="1980" max-vertical-offset="2880">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="consumer.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/phppear/consumer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="29" selection-start="516" selection-end="516" vertical-scroll-proportion="-7.3333335" vertical-offset="216" max-vertical-offset="1674">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mongoCls.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/phppear/mongoCls.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="50" selection-start="446" selection-end="446" vertical-scroll-proportion="-8.259259" vertical-offset="173" max-vertical-offset="1350">
+            <state line="42" column="31" selection-start="782" selection-end="782" vertical-scroll-proportion="0.5858407" vertical-offset="425" max-vertical-offset="1872">
               <folding>
-                <element signature="e#6#82#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="in.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/phppear/queue/in.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="4" selection-start="468" selection-end="468" vertical-scroll-proportion="-13.333333" vertical-offset="54" max-vertical-offset="702">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mongoLogCls.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/phppear/mongoLogCls.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="33" selection-start="1289" selection-end="1289" vertical-scroll-proportion="-10.0" vertical-offset="810" max-vertical-offset="2448">
-              <folding>
-                <element signature="e#6#85#0" expanded="true" />
+                <element signature="e#6#78#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -107,12 +60,14 @@
         <option value="$PROJECT_DIR$/phppear/mongodb.php" />
         <option value="$PROJECT_DIR$/phppear/mongo.php" />
         <option value="$PROJECT_DIR$/phppear/mongolog.php" />
-        <option value="$PROJECT_DIR$/phppear/consumer.php" />
-        <option value="$PROJECT_DIR$/phppear/mongoLogCls.php" />
-        <option value="$PROJECT_DIR$/phppear/amqpcls.php" />
         <option value="$PROJECT_DIR$/phppear/mongoCls.php" />
         <option value="$PROJECT_DIR$/phppear/queue/in.php" />
+        <option value="$PROJECT_DIR$/phppear/queue/out.php" />
+        <option value="$PROJECT_DIR$/phppear/consumer.php" />
+        <option value="$PROJECT_DIR$/phppear/amqpcls.php" />
         <option value="$PROJECT_DIR$/phppear/init.php" />
+        <option value="$PROJECT_DIR$/phppear/mongoLogCls.php" />
+        <option value="$PROJECT_DIR$/solr/solr.php" />
       </list>
     </option>
   </component>
@@ -177,7 +132,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="phppear" />
+              <option name="myItemId" value="solr" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -191,25 +146,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="phppear" />
+              <option name="myItemId" value="solr" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="queue" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phptest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phptest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="amqp" />
+              <option name="myItemId" value="solr" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -220,7 +161,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="F:/365jia" />
+    <property name="last_opened_file_path" value="Y:/zzw1/work" />
     <property name="SearchEverywhereHistory" value="" />
     <property name="FullScreen" value="false" />
   </component>
@@ -259,20 +200,20 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2806354" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28971255" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -292,6 +233,37 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/phppear/amqpcls.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="24" selection-start="3461" selection-end="3461" vertical-scroll-proportion="0.0" vertical-offset="2430" max-vertical-offset="2952">
+          <folding>
+            <element signature="e#6#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/consumer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="29" selection-start="516" selection-end="516" vertical-scroll-proportion="0.0" vertical-offset="504" max-vertical-offset="1746">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/mongoCls.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="50" selection-start="446" selection-end="446" vertical-scroll-proportion="0.0" vertical-offset="173" max-vertical-offset="1350" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/queue/in.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="4" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="702" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/mongoLogCls.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="33" selection-start="1289" selection-end="1289" vertical-scroll-proportion="0.0" vertical-offset="1080" max-vertical-offset="2430" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/phppear/init.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="37" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1656">
@@ -302,31 +274,25 @@
     <entry file="file://$PROJECT_DIR$/phppear/amqpcls.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="38" selection-start="1492" selection-end="1503" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2286">
-          <folding />
+          <folding>
+            <element signature="e#6#81#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/amqp/amqpSend.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="48" selection-start="607" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="576">
-          <folding />
-        </state>
+        <state line="19" column="48" selection-start="607" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="576" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/amqp/amqpReceive.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="9" selection-start="117" selection-end="126" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1188">
-          <folding>
-            <marker date="1424974106292" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
+        <state line="10" column="9" selection-start="117" selection-end="126" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1188" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/queue/in.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="19" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="522">
-          <folding />
-        </state>
+        <state line="19" column="19" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="522" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/consumer.php">
@@ -346,7 +312,9 @@
     <entry file="file://$PROJECT_DIR$/phppear/amqpcls.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="77" column="0" selection-start="1834" selection-end="1834" vertical-scroll-proportion="0.0" vertical-offset="1386" max-vertical-offset="2142">
-          <folding />
+          <folding>
+            <element signature="e#6#81#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -360,7 +328,9 @@
     <entry file="file://$PROJECT_DIR$/phppear/amqpcls.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="0" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="522">
-          <folding />
+          <folding>
+            <element signature="e#6#81#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -371,9 +341,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/pear.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="28" selection-start="652" selection-end="679" vertical-scroll-proportion="0.0" vertical-offset="666" max-vertical-offset="1638">
-          <folding />
-        </state>
+        <state line="37" column="28" selection-start="652" selection-end="679" vertical-scroll-proportion="0.0" vertical-offset="666" max-vertical-offset="1638" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/init.php">
@@ -385,9 +353,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/pear.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="43" selection-start="559" selection-end="559" vertical-scroll-proportion="0.0" vertical-offset="504" max-vertical-offset="1638">
-          <folding />
-        </state>
+        <state line="28" column="43" selection-start="559" selection-end="559" vertical-scroll-proportion="0.0" vertical-offset="504" max-vertical-offset="1638" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/redis/redis.php">
@@ -402,9 +368,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/pear.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1620">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1620" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/redis/redis.php">
@@ -419,9 +383,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/pear.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="1620">
-          <folding />
-        </state>
+        <state line="32" column="0" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="1620" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/map/t1.html">
@@ -476,9 +438,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pear/share/pear/System/Daemon.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1110" column="27" selection-start="35474" selection-end="35474" vertical-scroll-proportion="0.4141593" vertical-offset="19746" max-vertical-offset="29466">
-          <folding />
-        </state>
+        <state line="1110" column="27" selection-start="35474" selection-end="35474" vertical-scroll-proportion="0.4141593" vertical-offset="19746" max-vertical-offset="29466" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/init.tpl">
@@ -493,9 +453,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/pear.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="31" selection-start="255" selection-end="255" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1656">
-          <folding />
-        </state>
+        <state line="15" column="31" selection-start="255" selection-end="255" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1656" />
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_4.php">
@@ -505,65 +463,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/amqp/amqpReceive.php">
+    <entry file="file://$PROJECT_DIR$/phppear/mongoCls.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="35" selection-start="808" selection-end="825" vertical-scroll-proportion="0.860177" vertical-offset="36" max-vertical-offset="1170">
-          <folding>
-            <marker date="1424974106292" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
+        <state line="22" column="50" selection-start="446" selection-end="446" vertical-scroll-proportion="0.5415929" vertical-offset="0" max-vertical-offset="1260" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/amqp/amqpSend.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="36" selection-start="598" selection-end="598" vertical-scroll-proportion="-10.925926" vertical-offset="29" max-vertical-offset="594">
+        <state line="18" column="36" selection-start="598" selection-end="598" vertical-scroll-proportion="-11.925926" vertical-offset="2" max-vertical-offset="594" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/amqp/amqpReceive.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="36" selection-start="865" selection-end="865" vertical-scroll-proportion="0.57345134" vertical-offset="216" max-vertical-offset="1170" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/amqpcls.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="30" selection-start="2170" selection-end="2170" vertical-scroll-proportion="-0.14513275" vertical-offset="1612" max-vertical-offset="3294">
+          <folding>
+            <element signature="e#6#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/init.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="9" selection-start="2586" selection-end="2586" vertical-scroll-proportion="0.84070796" vertical-offset="1631" max-vertical-offset="2844">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/consumer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="29" selection-start="516" selection-end="516" vertical-scroll-proportion="-7.3333335" vertical-offset="216" max-vertical-offset="1674">
+        <state line="28" column="24" selection-start="512" selection-end="512" vertical-scroll-proportion="0.35044247" vertical-offset="216" max-vertical-offset="1674">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/phppear/mongoLogCls.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="33" selection-start="1289" selection-end="1289" vertical-scroll-proportion="-10.0" vertical-offset="810" max-vertical-offset="2448">
-          <folding>
-            <element signature="e#6#85#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/phppear/mongoCls.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="50" selection-start="446" selection-end="446" vertical-scroll-proportion="-8.259259" vertical-offset="173" max-vertical-offset="1350">
-          <folding>
-            <element signature="e#6#82#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/phppear/queue/in.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="4" selection-start="468" selection-end="468" vertical-scroll-proportion="-13.333333" vertical-offset="54" max-vertical-offset="702">
+        <state line="27" column="10" selection-start="604" selection-end="604" vertical-scroll-proportion="0.8088496" vertical-offset="29" max-vertical-offset="774" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/queue/out.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="28" selection-start="391" selection-end="391" vertical-scroll-proportion="0.5415929" vertical-offset="108" max-vertical-offset="918">
+          <folding>
+            <element signature="e#6#78#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phppear/mongoLogCls.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="31" selection-start="1398" selection-end="1398" vertical-scroll-proportion="0.7309734" vertical-offset="631" max-vertical-offset="2376" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solr/solr/LsSolr.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.0513275" vertical-offset="594" max-vertical-offset="3330">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/phppear/amqpcls.php">
+    <entry file="file://$PROJECT_DIR$/solr/solr.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="24" selection-start="3461" selection-end="3461" vertical-scroll-proportion="-13.333333" vertical-offset="1980" max-vertical-offset="2880">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/phppear/init.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="9" selection-start="2326" selection-end="2326" vertical-scroll-proportion="0.5415929" vertical-offset="1566" max-vertical-offset="2664">
-          <folding />
+        <state line="42" column="31" selection-start="782" selection-end="782" vertical-scroll-proportion="0.5858407" vertical-offset="425" max-vertical-offset="1872">
+          <folding>
+            <element signature="e#6#78#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
