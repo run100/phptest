@@ -6,11 +6,23 @@
  * Desc: 
  */
 
-define('BASEDIR', __DIR__);
+define('BASEDIR', substr(__DIR__,0,-6).'/');
 
-include BASEDIR.'/Lib/Loader.php';
+
+include BASEDIR.'Imooc/Lib/Loader.php';
 
 spl_autoload_register("\\Imooc\\Lib\\Loader::autoload");
 
-Imooc\Lib\Object::test();
-#Imooc\App\Controller\Home\Index::test();
+// 工厂模式
+$db = Imooc\Lib\Factory::createDatabase();
+$db('param');
+
+//Imooc\Lib\Object::test();
+//Imooc\App\Controller\Home\Index::test();
+
+// 魔术方法测试
+//$db = new Imooc\Lib\Database();
+//$db->test('hello', 123);
+// Imooc\Lib\Database::test("aaa");
+//echo $db;
+//$db('param');

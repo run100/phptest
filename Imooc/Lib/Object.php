@@ -11,6 +11,6 @@ namespace Imooc\Lib;
 class Object
 {
     static function test(){
-        echo __METHOD__;
+        echo __METHOD__."\r\n";
     }
 }
