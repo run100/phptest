@@ -13,10 +13,19 @@ include BASEDIR.'Imooc/Lib/Loader.php';
 
 spl_autoload_register("\\Imooc\\Lib\\Loader::autoload");
 
+
+// 选配器模式
+/*//$db = new Imooc\Lib\Database\Pdo();
+$db = new Imooc\Lib\Database\Mysql();
+$db->conn('127.0.0.1', 'root', '', 'test');
+$res = $db->query('show databases');
+var_dump($res);
+$db->close();*/
+
 // 注册模式
-Imooc\Lib\Database::createDatabase();
+/*Imooc\Lib\Database::createDatabase();
 $db1 = Imooc\Lib\Register::get('db1');
-var_dump($db1);
+var_dump($db1);*/
 
 // 单例模式
 /*$db = Imooc\Lib\Database::getInstance();

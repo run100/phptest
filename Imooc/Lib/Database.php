@@ -8,6 +8,8 @@
 
 namespace Imooc\Lib;
 
+
+
 class Database
 {
     static  $db;
