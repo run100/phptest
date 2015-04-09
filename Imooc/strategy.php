@@ -11,7 +11,7 @@ require_once dirname(__FILE__).'/autoload.php';
 class Page
 {
     /**
-     * @var \Imooc\Lib\Strategy
+     * @var \Imooc\Lib\UserStrategy
      */
     var $strategy = null;
 
