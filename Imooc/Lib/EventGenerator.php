@@ -11,12 +11,14 @@ namespace Imooc\Lib;
 abstract class EventGenerator
 {
     private $observers = array();
-    
+
     public function addObserver(Observer $observer){
         $this->observers[] = $observer;
     }
 
     public function notity(){
-
+        foreach($this->observers AS $ob){
+            $ob->update();
+        }
     }
 }

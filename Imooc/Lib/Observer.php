@@ -11,5 +11,5 @@ namespace Imooc\Lib;
 
 interface Observer
 {
-    function update($event_info = null);
+    public function update($event_info = null);
 }
