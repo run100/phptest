@@ -17,4 +17,19 @@ class Factory
         Register::set('db1', $db);
         return $db;
     }
+
+    /**
+     * @param $id
+     * @return Mapping
+     */
+    static function getMapping($id){
+        $key = 'user_'.$id;
+        $user = Register::get($key);
+        if(!$user){
+            $user = new Mapping($id);
+            Register::set($key, $user);
+        }
+
+        return $user;
+    }
 }
