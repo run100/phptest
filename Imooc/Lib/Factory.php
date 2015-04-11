@@ -9,12 +9,21 @@
 
 namespace Imooc\Lib;
 
+use Imooc\Lib\Database\Mysqli;
+
 class Factory
 {
-    static function createDatabase()
+    static function createDatabase($type)
     {
-        $db = Database::getInstance();
-        Register::set('db1', $db);
+        $db = Register::get($type);
+
+        if(!$db){
+            //$db = Database::getInstance();
+            $db = new Mysqli();
+            $db->conn('127.0.0.1','root', '', 'lucene');
+            Register::set($type, $db);
+        }
+
         return $db;
     }
 

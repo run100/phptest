@@ -14,6 +14,7 @@ include BASEDIR.'Imooc/Lib/Loader.php';
 spl_autoload_register("\\Imooc\\Lib\\Loader::autoload");
 
 
+
 // 选配器模式
 /*//$db = new Imooc\Lib\Database\Pdo();
 $db = new Imooc\Lib\Database\Mysql();
