@@ -13,6 +13,26 @@ use Imooc\Lib\Database\Mysqli;
 
 class Factory
 {
+    static function getDatabase($id = 'master'){
+
+        $key = 'database_'.$id;
+        // 获取配置
+        if($id == 'slave'){
+            $slaves = Application::getInstance()->config['databases'][$id];
+            $db_conf = $slaves[array_rand($slaves)];
+        }else{
+            $db_conf = Application::getInstance()->config['databases'][$id];
+        }
+
+        $db = Register::get($key);
+        if(!$db){
+            $db = new Database\Mysqli();
+            $db->conn($db_conf['host'], $db_conf['user'], $db_conf['password'], $db_conf['dbname']);
+            Register::set($key, $db);
+        }
+        return $db;
+    }
+
     static function createDatabase($type)
     {
         $db = Register::get($type);
