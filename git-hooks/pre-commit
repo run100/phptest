@@ -1,0 +1,300 @@
+#!/usr/bin/python
+#coding:utf-8
+
+import os,re,sys,time;
+
+
+def main():
+    l1 = run('/usr/local/bin/git diff --cached --name-only HEAD').splitlines();
+    if (len(l1) == 0):
+        exit(0);
+
+    print '***************************************************';
+    print '*                                                 *';
+    print '*               代码提交检查              *';
+    print '*                                                 *';
+    print '***************************************************';
+
+
+    l2 = run('/usr/local/bin/git diff --name-only').splitlines();
+
+    l3 = list(set(l1).intersection(set(l2)));
+    if (len(l3) > 0):
+        print "\n";
+        print "以下文件在git add后又有修改, 请重新add到暂存区后再提交";
+        print "\n".join(l3);
+        print "\n";
+        exit(1);
+
+    ret = parse_diff(l1);
+
+    ban_check(ret);
+    syntax_check(ret);
+    danger_check(ret);
+
+    l2 = run('/usr/local/bin/git diff --name-only').splitlines();
+    l3 = list(set(l1).intersection(set(l2)));
+    if (len(l3) > 0):
+        print "\n";
+        print "以下文件在git add后又有修改, 请重新add到暂存区后再提交";
+        print "\n".join(l3);
+        print "\n";
+        exit(1);
+
+    print '检查通过!'
+
+    return 0;
+
+def run(cmd):
+    p = os.popen(cmd);
+    text = p.read();
+    p.close();
+    return text.strip();
+
+def parse_diff(files):
+    ret = {};
+    if (len(files) == 0):
+        return ret;
+    ret['php_files'] = filter(filter_php ,files);
+    ret['php_files'].sort();
+    ret['xml_files'] = filter(filter_xml ,files);
+    ret['xml_files'].sort();
+    ret['yml_files'] = filter(filter_yml ,files);
+    ret['yml_files'].sort();
+    ret['danger_files'] = filter(filter_danger ,files);
+    ret['danger_files'].sort();
+    ret['ban_files'] = filter(filter_ban ,files);
+    ret['ban_files'].sort();
+    return ret;
+
+def is_super():
+    users = ['chromev'];
+    user_name = run('/usr/local/bin/git config --get user.name');
+    return user_name in users;
+
+def filter_php(file):
+    return re.search(r'php$', file);
+
+def filter_yml(file):
+    return re.search(r'yml$', file);
+
+def filter_xml(file):
+    return re.search(r'xml$', file);
+
+def filter_danger(file):
+    return re.search(r'(^plugins/)|(^config/)|(^bin/)|(^lib/)|(/cron/)', file) \
+        and not re.search(r'^lib/model', file) \
+        or re.search(r'^lib/model/(news|user|common)', file) \
+        or re.search(r'^apps/www/templates/', file) \
+        or re.search(r'/(config|data)/', file) \
+        or re.search(r'^web/[^/]+[.]php$', file);
+
+def filter_ban(file):
+    return re.search(r'(^symfony-stable/)|(^utils/)|(^pear/)|(^openads/)', file);
+
+
+def query_yes_no(question, default="yes"):
+    valid = {"yes":"yes", "y":"yes", "ye":"yes", "no":"no", "n":"no"}
+    if default == None:
+        prompt = " [y/n] "
+    elif default == "yes":
+        prompt = " [Y/n] "
+    elif default == "no":
+        prompt = " [y/N] "
+    else:
+        raise ValueError("invalid default answer: '%s'" % default)
+
+    f = open('/dev/tty');
+    while 1:
+        sys.stdout.write(question + prompt)
+        choice = f.readline().strip().lower()
+        if default is not None and choice == '':
+            f.close();
+            return default
+        elif choice in valid.keys():
+            f.close();
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' "\
+                             "(or 'y' or 'n').\n")
+
+def syntax_check(lists):
+    ret = lists;
+    i = 0;
+    while i < len(ret['php_files']):
+        file = ret['php_files'][i];
+        i = i+1;
+        if not os.path.isfile(file): continue;
+        p = os.popen("/usr/local/bin/git show :'%s'|php -l 2>&1"%file);
+        err = p.read();
+        if (p.close() != None):
+            print "\n警告: PHP语法错误!不允许提交!";
+            print file;
+            print "\n";
+            print err;
+            exit(1);
+
+    i = 0;
+    while i < len(ret['php_files']):
+        file = ret['php_files'][i];
+        i = i+1;
+        if not os.path.isfile(file): continue;
+        if not os.path.getsize(file): continue;
+        if re.search('lib/model/.+/(om|map)/', file): continue;
+        st = run("/usr/local/bin/git status -s '%s' | awk '{print $1}'"%file);
+        if st == 'A':
+            if re.search('/templates/', file):
+                err = os.popen("/usr/local/bin/git grep -En '\<(endif|endforeach|endswitch)\>' :'%s'"%file).read();
+                if (len(err)): continue;
+            err = run("/usr/local/bin/git show :'{0}'|/usr/bin/phpcs --standard=/home/git-hooks/rules.xml|sed 's/FILE: STDIN/FILE: {1}/'".format(file, file.replace('/', '\/')));
+            if (len(err)):
+                print "\n警告: 编码不符合规范, 请参照提示修改后提交!";
+                print err;
+                print "\n";
+                exit(1);
+
+    warns = [];
+    i = 0;
+    while i < len(ret['php_files']):
+        file = ret['php_files'][i];
+        i = i+1;
+        if not os.path.isfile(file): continue;
+        if not os.path.getsize(file): continue;
+        if re.search('lib/model/.+/(om|map)/', file): continue;
+        st = run("/usr/local/bin/git status -s '%s' | awk '{print $1}'"%file);
+        if st == 'M':
+            if re.search('/templates/', file):
+                err = os.popen("/usr/local/bin/git grep -En '\<(endif|endforeach|endswitch)\>' :'%s'"%file).read();
+                if (len(err)): continue;
+            err = run("/usr/local/bin/git rev-list HEAD --count '%s'"%file);
+            if (int(err) > 500):
+                err = run("/usr/local/bin/git show :'%s'|/usr/bin/phpcs --standard=/home/git-hooks/rules.xml|grep FOUND|awk -F 'AFFECTING' '{print $1}'|awk -F 'FOUND' '{print $2}'"%file);
+                if (len(err)):
+                    warns.append("{0}: {1}\n(查看详细: /usr/bin/phpcs --standard=/home/git-hooks/rules.xml {0})\n".format(file, err));
+            else:
+                err = run("/usr/local/bin/git show :'{0}'|/usr/bin/phpcs --standard=/home/git-hooks/rules.xml|sed 's/FILE: STDIN/FILE: {1}/'".format(file, file.replace('/', '\/')));
+                if (len(err)):
+                    print "\n警告: 编码不符合规范, 请参照提示修改后提交!";
+                    print err;
+                    print "\n";
+                    exit(1);
+
+    if len(warns) > 0:
+        print "\n提示: 以下代码存在编码规范问题, 有时间尽量改一下吧！";
+        print "\n";
+        print '\n'.join(warns);
+        print "\n";
+        print "(回车键继续...)";
+
+        f = open('/dev/tty');
+        f.readline();
+        f.close();
+
+    i = 0;
+    while i < len(ret['php_files']):
+        file = ret['php_files'][i];
+        i = i+1;
+        if not os.path.isfile(file): continue;
+        err = os.popen("/usr/local/bin/git grep -En '\<(die|debug_backtrace|debug_print_backtrace)\>\s*[;\(]' :'%s'"%file).read();
+        if (len(err)):
+            print "\n警告: PHP代码中含有调试性代码!不允许提交!";
+            print file;
+            print "\n";
+            print err;
+            exit(1);
+
+    i = 0;
+    while i < len(ret['php_files']):
+        file = ret['php_files'][i];
+        i = i+1;
+        if not os.path.isfile(file): continue;
+        err = os.popen("/usr/local/bin/git grep -En '\<(echo|print|print_r|var_dump|exit)\>\s*[;\(]' :'%s'"%file).read();
+        if (len(err)):
+            print "\n";
+            print file;
+            print "\n";
+            print err;
+            print "\n警告: PHP代码中可能含有调试性代码!请检查后提交!";
+            ok = query_yes_no("确认以上代码中不含调试性代码?", None);
+            if (ok == 'no'):
+                exit(1);
+
+    i = 0;
+    while i < len(ret['xml_files']):
+        file = ret['xml_files'][i];
+        i = i+1;
+        if not os.path.isfile(file): continue;
+        p = os.popen("/usr/local/bin/git show :'%s'|xmllint --noout - 2>&1"%file);
+        err = p.read();
+        if (p.close() != None):
+            print "\n警告: XML配置文件语法错误!不允许提交!";
+            print file;
+            print "\n";
+            print err;
+            exit(1);
+
+    i = 0;
+    while i < len(ret['yml_files']):
+        file = ret['yml_files'][i];
+        i = i+1;
+        if not os.path.isfile(file): continue;
+        p = os.popen("/usr/local/bin/git show :'{0}'|echo \"<?php define('SF_ENVIRONMENT', 'dev'); preg_match('#apps/(\w+)/#', '{0}', \$m); if (\$m[1]) define('SF_APP', \$m[1]); require_once __DIR__ . '/batch/bootstrap.php';?>$(cat -)\"|php|yamllint - 2>&1".format(file));
+        err = p.read();
+        if (p.close() != None):
+            print "\n警告: YML配置文件语法错误!不允许提交!";
+            print file;
+            print "\n";
+            print err;
+            exit(1);
+
+
+def ban_check(lists):
+    ret = lists;
+
+    if (is_super()):
+        return;
+
+    if (len (ret['ban_files']) == 0):
+        return;
+    print "\n警告: 以下代码不允许修改，如需修改请联系各自技术经理。";
+    print "\n";
+    print "\n".join(ret['ban_files']);
+    print "\n";
+    exit(1);
+
+def danger_check(lists):
+    ret = lists;
+    i = 0;
+
+    if (len (ret['danger_files']) == 0):
+        return;
+
+    print "\n警告: 对以下文件的错误修改可能会导致全局性问题，请认真检查后确认! ";
+    print "\n";
+    print "\n".join(ret['danger_files']);
+    print "\n代码审阅按键提示:\n";
+    print "上下键:        前后滚动"
+    print "q:             退出"
+    print "/:             搜索"
+    print "PageUp:        上一页"
+    print "PageDown/空格: 下一页"
+    print "\n";
+    print "(回车键继续...)";
+
+    f = open('/dev/tty');
+    f.readline();
+    f.close();
+
+    while i < len(ret['danger_files']):
+        file = ret['danger_files'][i];
+        i = i+1;
+        print "\n";
+        print file;
+        time.sleep(1);
+        os.system("/usr/local/bin/git diff --cached HEAD %s"%file);
+        ok = query_yes_no("确认提交:", None);
+        if (ok == 'no'):
+            exit(1);
+
+
+main();

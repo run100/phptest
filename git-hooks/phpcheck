@@ -1,0 +1,8 @@
+#!/bin/sh
+for file in $(git status -s .|grep -E '^[M|A]'|grep php$|grep -Ev '/(om|map)/'|awk '{print $2}'); do
+  if [[ $(phpcs $file|wc -l) -gt 0 ]]; then
+    echo $file;
+  fi
+done
+
+
