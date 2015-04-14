@@ -11,7 +11,7 @@ def main():
 
     print '***************************************************';
     print '*                                                 *';
-    print '*               万家社区代码提交检查              *';
+    print '*               Symfony2代码提交检查              *';
     print '*                                                 *';
     print '***************************************************';
 
@@ -175,7 +175,7 @@ def syntax_check(lists):
         if not os.path.getsize(file): continue;
         err = os.popen("/usr/local/bin/git grep -En '\<(endif|endforeach|endswitch)\>' :'%s'"%file).read();
         if (len(err)): continue;
-        err = run("/usr/local/bin/git show :'{0}'|/usr/bin/phpcs --standard=/home/git-hooks/365lin-rules.xml|sed 's/FILE: STDIN/FILE: {1}/'".format(file, file.replace('/', '\/')));
+        err = run("/usr/local/bin/git show :'{0}'|/usr/bin/phpcs --standard=/home/git-hooks/rules-sf2.xml|sed 's/FILE: STDIN/FILE: {1}/'".format(file, file.replace('/', '\/')));
         if (len(err)):
             print "\n警告: 编码不符合规范, 请参照提示修改后提交!";
             print err;

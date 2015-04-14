@@ -9,7 +9,7 @@
 $config = array(
     'home' => array(
         'decorator'=>array(
-
+            'Imooc\App\Decorator\Template'
         )
     ),
     'default' => 'Hello world'
