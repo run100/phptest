@@ -1,0 +1,385 @@
+#!/usr/bin/python
+#coding:utf-8
+
+import os,re,sys,time;
+
+
+def main():
+    branch = '';
+    m = re.compile(r"^refs/heads/(\w+) ").search(sys.stdin.readline())
+    if (m):
+        branch = m.group(1)
+
+    if (branch == ''):
+        branch        = run('/usr/local/bin/git rev-parse --abbrev-ref HEAD').strip();
+
+    branch_remote = run("/usr/local/bin/git for-each-ref --format='%(upstream:short)' refs/heads/" + branch).strip();
+
+    if (branch_remote == ''):
+        exit(0)
+
+    run('/usr/local/bin/git fetch 2>&1');
+    rev_counts = run("/usr/local/bin/git rev-list --count --left-right %s...%s"%(branch, branch_remote)).strip();
+    rev_counts = re.compile(r"\s+").split(rev_counts);
+    revs_to_push = int(rev_counts[0]);
+    revs_to_pull = int(rev_counts[1]);
+
+    if (revs_to_pull > 0):
+        print '\nWarning: You need run "/usr/local/bin/git pull" first!\n';
+        exit(1);
+
+    rev_local  = run("/usr/local/bin/git rev-parse --short %s"%branch).strip();
+    rev_remote = run("/usr/local/bin/git rev-parse --short %s"%branch_remote).strip();
+
+    l1 = run("/usr/local/bin/git diff --name-only %s %s"%(branch_remote, branch)).splitlines();
+    if (len(l1) == 0):
+        exit(0);
+
+    if (branch != 'master'):
+        exit(0);
+
+
+    print '***************************************************';
+    print '*                                                 *';
+    print '*               万家热线代码Push检查              *';
+    print '*                                                 *';
+    print '***************************************************';
+
+    ret = parse_diff(l1);
+
+
+    print "\n";
+    if (not is_super() and not is_push_time() and len(ret['danger_files']) > 0):
+        print '警告: Push时间已过，不允许向master提交敏感文件。建议由产品经理检查后于下个工作日Push时间内上线。';
+        print '      如有特殊上线需求，请PUSH到自己独立的远程分支，请相关技术经理merge后，由技术经理PUSH上线。';
+        print "\n";
+        print '注: 每日Push时间为9:00~10:30';
+        print "\n";
+        print "敏感文件:";
+        print "\n";
+        print "\n".join(ret['danger_files']);
+        print "\n";
+        exit(1);
+
+
+    danger_check(ret, rev_remote, rev_local);
+    print '检查通过!\n'
+
+    generate_notice(l1);
+    return 0;
+
+def run(cmd):
+    p = os.popen(cmd);
+    text = p.read();
+    p.close();
+    return text;
+
+def generate_notice(l1):
+    notices = parse_notice(l1);
+    i = 1;
+    print '上线提示:'
+
+    reg0 = re.compile(r'^schema (\w+)');
+    schemas = [('mysql -u root 365jia -h wjdb < ./data/sql/lib.model.' + m.group(1) + '.diff.sql') for m in (reg0.search(l) for l in notices) if m];
+    lock = False
+    if len(schemas) > 0:
+        lock = True
+        print "\
+\n%2d. 更新Schema (Be careful, review the generated diff.sql!!)\n\
+    (xchat): @lock\n\
+    (xchat): @gitup\n\
+    (staging): ./symfony propel-sqldiff\n\
+    (staging): %s\
+"%(i, '\n    (staging): '.join(schemas)); i = i+1;
+
+    batch = set([]);
+    if 'lmmapping' in notices:
+        batch.add('php apps/newshop/data/lmmapping-update.php');
+    if 'msort' in notices:
+        batch.add('php apps/newshop/data/msort-update.php');
+    if 'news-cata' in notices:
+        batch.add('php apps/news/data/xml_to_db.php');
+    if 'news-custom' in notices:
+        batch.add('php apps/news/data/custom_xml_to_db.php');
+    if 'news-template' in notices:
+        batch.add('php apps/news/data/template_xml_to_db.php');
+    if 'data-generator' in notices:
+        batch.add('php apps/news/data/generator.php');
+    if 'special-lottery' in notices:
+        batch.add('php apps/special/data/update_lucky_lottery.php');
+    if 'user-level' in notices:
+        batch.add('php apps/user/data/userLevelConfig/csv_to_xml.php');
+        batch.add('php apps/user/data/userLevelConfig/xml_to_db.php');
+    if 'user-rule' in notices:
+        batch.add('php apps/user/data/rule_xml_to_db.php');
+    if 'user-money-rule' in notices:
+        batch.add('php apps/user/data/moneyrule_xml_to_db.php');
+    if 'mongo-index' in notices:
+        batch.add('./symfony ls-mongo-index     (be careful!!!)');
+    if 'mongo-js' in notices:
+        batch.add('./symfony ls-mongo-js');
+    if 'permissions' in notices:
+        batch.add('./symfony dev-load-perms');
+
+    if len(batch) > 0:
+        print "\
+\n%2d. 线上部署\n\
+    (staging): %s\
+"%(i, '\n    (staging): '.join(batch)); i = i+1;
+
+
+    print "\
+\n%2d. 上线\n\
+    (xchat): @gitup2\
+"%(i); i = i+1;
+
+    if 'ccc' in notices:
+        print "\n%2d. 你可能需要清整站缓存\n    (xchat): @sfccc"%(i)
+        i = i+1;
+    else:
+        reg0 = re.compile(r'^cc (\w+)');
+        apps = [m.group(1) for m in (reg0.search(l) for l in notices) if m];
+        if len(apps) > 0:
+            print "\n%2d. 你可能需要清App缓存\n    (xchat): @sfcc %s"%(i, ' '.join(apps))
+            i = i+1;
+
+    reg0 = re.compile(r'^consumer (\w+)');
+    consumers = [m.group(1) for m in (reg0.search(l) for l in notices) if m];
+    lines = '';
+    if len(consumers):
+        lines += "    (venus): Consumer的部署: %s\n"%("\n    (venus): Consumer的部署: ".join(consumers));
+
+    reg0 = re.compile(r'^batch ([\s\S]+)');
+    batchs = [m.group(1) for m in (reg0.search(l) for l in notices) if m];
+    if len(batchs):
+        lines += "    (kent): Batch的部署: %s\n"%("\n    (kent): Batch的部署: ".join(batchs));
+
+
+    if lock:
+        print "\
+\n%2d. 其他\n\
+    (xchat): @unlock\n%s\
+"%(i, lines); i = i+1;
+    elif len(lines):
+        print "\
+\n%2d. 其他\n%s\
+"%(i, lines); i = i+1;
+
+
+
+def parse_notice(files):
+    if (len(files) == 0):
+        return set([]);
+
+    rex = re.compile(r'^apps/(\w+)/');
+    s1 = set([]);
+
+    # config in plugins need ccc
+    l1 = filter(
+        lambda file: re.search(r'config/.+[.]yml$', file),
+        files
+    );
+    l2 = filter(
+        lambda file: re.search(r'^plugins/', file),
+        l1,
+    );
+    if (len(l2) > 0):
+        s1.add('ccc');
+
+    # config in app need cc
+    i = 0;
+    while i < len(l1):
+        file = l1[i];
+        i = i+1;
+        m = rex.search(file);
+        if (m):
+            s1.add('cc ' + m.group(1));
+
+    # php in plugin/lib need ccc
+    l1 = filter(
+        lambda file: re.search(r'^(plugins|lib)/[\s\S]+?[.]php$', file),
+        files
+    );
+    if (len(l1) > 0):
+        s1.add('ccc');
+
+    # php in app/lib need cc
+    l1 = filter(
+        lambda file: re.search(r'^(apps)/[\s\S]+?[.]php$', file) and re.search(r'/lib/', file),
+        files
+    );
+    i = 0;
+    while i < len(l1):
+        file = l1[i];
+        i = i+1;
+        m = rex.search(file);
+        if (m):
+            s1.add('cc ' + m.group(1));
+
+    # consumer need init/restart
+    l1 = filter(
+        lambda file: re.search(r'[.]php$', file) and re.search(r'(^|/)lib/', file),
+        files
+    );
+    rex1 = re.compile(r'class (\w+) extends');
+    i = 0;
+    while i < len(l1):
+        file = l1[i];
+        i = i+1;
+        txt = run("grep 'LsSimpleConsumer' %s"%file).strip();
+        if (txt == ''):
+            continue;
+        m = rex1.search(txt);
+        if (m):
+            s1.add('consumer ' + m.group(1));
+
+    # batch need prompt
+    l1 = filter(
+        lambda file: re.search(r'[.](php|sql)$', file) and re.search(r'^batch/', file),
+        files
+    );
+    i = 0;
+    while i < len(l1):
+        file = l1[i];
+        i = i+1;
+        s1.add('batch ' + file);
+
+    reg0 = re.compile(r'^config/orm/(\w+).schema.xml$');
+    s1 |= set(['schema ' + m.group(1) for m in (reg0.search(file) for file in files) if m]);
+
+    if ('apps/newshop/data/lmmapping.yml' in files):
+        s1.add('lmmapping');
+
+    if ('apps/newshop/data/msort.yml.yml' in files):
+        s1.add('msort');
+
+    if ('apps/news/data/data.xml' in files):
+        s1.add('news-cata');
+
+    if ('apps/news/data/custom.xml' in files):
+        s1.add('news-custom');
+
+    if ('apps/news/data/template.xml' in files):
+        s1.add('news-template');
+
+    if ('apps/news/data/generator.yml' in files):
+        s1.add('data-generator');
+
+    if ('apps/special/data/lucky_lottery.yml' in files):
+        s1.add('special-lottery');
+
+    if ('apps/user/data/userLevelConfig/data.xml' in files or 'apps/user/data/userLevelConfig/relation.csv' in files):
+        s1.add('user-level');
+
+    if ('apps/user/data/rule.xml' in files):
+        s1.add('user-rule');
+
+    if ('apps/user/data/money_rule.xml' in files):
+        s1.add('user-money-rule');
+
+    if ('plugins/LsMongoPlugin/config/mongo.yml' in files):
+        s1.add('mongo-index');
+
+    if ('plugins/LsMongoPlugin/config/stored_js.yml' in files):
+        s1.add('mongo-js');
+
+    if ('plugins/sfGuardPlugin/data/config/permissions.yml' in files):
+        s1.add('permissions');
+
+    return s1;
+
+
+
+def parse_diff(files):
+    ret = {};
+    if (len(files) == 0):
+        return ret;
+    ret['danger_files'] = list(set(filter(filter_danger ,files) + filter(filter_ban ,files)));
+    ret['danger_files'].sort();
+
+    return ret;
+
+def is_push_time():
+    time = int(run('date +%H%M').strip());
+    return time >= 900 and time <= 1030;
+
+def is_super():
+    users = ['Gu Xiaoyu', 'Xu Hang'];
+    user_name = run('/usr/local/bin/git config --get user.name').strip();
+    return user_name in users;
+
+def filter_danger(file):
+    return re.search(r'(^plugins/)|(^config/)|(^bin/)|(^lib/)|(/cron/)', file) \
+        and not re.search(r'^lib/model', file) \
+        or re.search(r'^lib/model/(news|user|common)', file) \
+        or re.search(r'^apps/www/templates/', file) \
+        or re.search(r'/(config|data)/', file) \
+        or re.search(r'^web/[^/]+[.]php$', file);
+
+def filter_ban(file):
+    return re.search(r'(^symfony-stable/)|(^utils/)|(^pear/)|(^openads/)|(^config/rules.xml$)', file);
+
+
+def query_yes_no(question, default="yes"):
+    valid = {"yes":"yes", "y":"yes", "ye":"yes", "no":"no", "n":"no"}
+    if default == None:
+        prompt = " [y/n] "
+    elif default == "yes":
+        prompt = " [Y/n] "
+    elif default == "no":
+        prompt = " [y/N] "
+    else:
+        raise ValueError("invalid default answer: '%s'" % default)
+
+    f = open('/dev/tty');
+    while 1:
+        sys.stdout.write(question + prompt)
+        choice = f.readline().strip().lower()
+        if default is not None and choice == '':
+            f.close();
+            return default
+        elif choice in valid.keys():
+            f.close();
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' "\
+                             "(or 'y' or 'n').\n")
+
+def danger_check(lists, rev_remote, rev_local):
+    ret = lists;
+    i = 0;
+
+    if len(ret['danger_files']) <= 0:
+	    return;
+
+    print "\n警告: 对以下文件的错误修改可能会导致全局性问题，请认真检查后确认! ";
+    print "\n";
+    print "\n".join(ret['danger_files']);
+    print "\n代码审阅按键提示:\n";
+    print "上下键:        前后滚动"
+    print "q:             退出"
+    print "/:             搜索"
+    print "PageUp:        上一页"
+    print "PageDown/空格: 下一页"
+    print "\n";
+    print "(回车键继续...)";
+
+    f = open('/dev/tty');
+    f.readline();
+    f.close();
+
+    while i < len(ret['danger_files']):
+        file = ret['danger_files'][i];
+        i = i+1;
+        print "\n";
+        print file;
+        time.sleep(1);
+        os.system("/usr/local/bin/git diff %s %s %s"%(rev_remote, rev_local, file));
+        ok = query_yes_no("确认提交到服务器:", None);
+        if (ok == 'no'):
+            exit(1);
+
+
+main();
+
+
