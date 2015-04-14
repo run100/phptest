@@ -17,7 +17,10 @@ class Register
     }
 
     static function get($alias){
-        return self::$objects[$alias];
+        if( isset(self::$objects[$alias]) ){
+            return self::$objects[$alias];
+        }
+
     }
 
     function _unset($alias){

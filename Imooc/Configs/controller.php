@@ -9,6 +9,7 @@
 $config = array(
     'home' => array(
         'decorator'=>array(
+            'Imooc\App\Decorator\Json',
             'Imooc\App\Decorator\Template'
         )
     ),

@@ -31,3 +31,5 @@ $config = array(
         ),
     ),
 );
+
+return $config;
