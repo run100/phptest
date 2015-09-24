@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tmpl-3</title>
+  <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
+  <script type="text/javascript" src="../js/jquery.tmpl.js"></script>
+</head>
+<body>
+
+<table><tbody class="header"><tr><th>Synopsis</th><th>Title</th></tr></tbody>
+  <tbody id="movieList"></tbody>
+</table>
+
+<script id="movieTemplate" type="text/javascript" type="text/x-jquery-tmpl">
+<tr>
+  <td>{{= Title}}</td>
+  <td>
+    <b>Languages:</b>
+      <em>
+        {{each Languages}}
+          ${$value.Name}
+          {{if $index < Languages.length-2 }}
+          ,
+          {{else  $index == Languages.length-2}}
+          and
+          {{/if}}
+        {{/each}}
+      </em><br/>
+    <b>Subtitles:</b>
+    {{each(i, item) Subtitles}}
+      ${namePlusSeparator(item.Name, i, Subtitles.length)}
+    {{/each}}
+  </td>
+</tr>
+</script>
+
+<script type="text/javascript">
+function namePlusSeparator( name, index, length ){
+  var ret = name.toUpperCase();
+  if ( index < length - 1 ) {
+    if ( index == length - 2 ) {
+      ret += ' and ';
+    } else {
+      ret += ' , ';
+    }
+  }
+  return ret;
+}
+
+var movies = [
+  {
+    Title : 'Hello world',
+    Languages : [
+      { Name: "English" },
+      { Name: "French" },
+    ],
+    Subtitles: [
+      { Name: "English" },
+      { Name: "French" },
+      { Name: "Chinese" }
+    ]
+  },
+  {
+    Title: "Eyes Wide Shut",
+    Languages: [
+      { Name: "French" },
+      { Name: "German" },
+      { Name: "Spanish" }
+    ],
+    Subtitles: [
+      { Name: "English" }
+    ]
+  }
+];
+
+$('#movieTemplate').tmpl(movies).appendTo(movieList);
+</script>
+</body>
+</html>
