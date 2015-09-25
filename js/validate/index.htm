@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="crm_signup.css">
+  <script type="text/javascript" src="reg.js"></script>
+  <style type="text/css">
+    .crm_signup_explain { display: none }
+    .crm_signup_tle { padding: 15px; margin-bottom: 30px; font-size: 14px; text-align: center; }
+    .crm_signup { background: #33CCCC } /* 背景色 */
+    .crm_signup { width: ; } /* 整体宽度 默认居左 */
+    /* .crm_signup { float: left } 居左 */
+    .crm_signup { margin: 0 auto; } /* 居中 */
+    /* .crm_signup { float: right }  居右 */
+    .crm_signup { color: #000000} /* 文字颜色 */
+    .lable_csf { font-size: 12px; } /* lab字号 */
+    .lable_csf { width:  100px; } /* lab宽度 */
+    .ipt_crm_signup,.crm_wp86 { width: 200px; } /* 文本框、下来列表宽度 */
+    .crm_signup_tle,.crm_signup { border: solid 1px #ddd } /* 有边框 */
+    /*  .crm_signup_tle,.crm_signup { border: none }  无边框 */
+  </style>
+</head>
+<body>
+<script type="text/javascript">
+$.validator.setDefaults({
+    a: true,
+    submitHandler: function() {
+      /*var url = $("#regForm").attr('action');
+      var params = $("#regForm").serialize();
+      $.post(url, params, function(json) {
+      if ($("#captcha").length) {
+        $("#captcha").attr('src',"/event/captcha?"+Math.random()*5);
+      }
+      if (json.success) {
+          $('#regForm').each(function(){
+            this.reset();
+          });
+          alert('报名成功');
+        } else {
+          alert(json.info);
+        }
+      }, 'json');*/
+    },
+    errorPlacement: function(error, element) {
+      alert(error);
+      //error.insertAfter(element);
+      //alert(1);
+      //console.log(element.attr("type"));
+      /*if(element.attr("type") == 'radio' || element.attr("type") == 'checkbox'){
+        error.appendTo(element.parent().parent());
+      }else {
+        error.appendTo(element.parent());
+      }*/
+    },
+    errorClass: 'crm_signup_tip'
+  });
+</script>
+
+ <script type="text/javascript">
+//<![CDATA[
+  var rules = {};
+  var messages = {};
+//]]>
+</script>
+<form class="regForm" id="regForm" action="" method="POST" style="">
+<div class="crm_signup">
+
+  <div class="crm_signup_tle">
+        <span>报名</span>
+
+  </div>
+
+  <input type="hidden" name="id" id="event_id" value="4971" />
+  <div class="crm_signup_form">
+    <ul class="">
+       <li>
+          <label class="lable_csf"><span class="crm_required">*</span>手机号</label>
+          <div class="crm_signup_form_c">
+            <input type="text" name="mobile" id="mobile" class="ipt_crm_signup" />
+            <!-- <span class="crm_signup_tip">错误提示</span>-->
+          </div>
+       </li>
+    </ul>
+    <div class="crm_signup_tac">
+      <input type="submit" value="提交报名" class="btn_crm_signup">
+    </div>
+  </div><!-- #crm_signup_form -->
+</div><!-- #crm_signup -->
+</form>
+</body>
+</html>
