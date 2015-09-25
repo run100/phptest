@@ -1,0 +1,253 @@
+
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="stylesheet" type="text/css" media="screen" href="/ui/resources/css/crm_signup.css" />
+<script type="text/javascript" src="/ui/reg.js"></script>
+<script type="text/javascript">
+    $.validator.setDefaults({
+      a: true,
+      submitHandler: function() {
+        var url = $("#regForm").attr('action');
+        var params = $("#regForm").serialize();
+        $.post(url, params, function(json) {
+        if ($("#captcha").length) {
+          $("#captcha").attr('src',"/event/captcha?"+Math.random()*5);
+        }
+        if (json.success) {
+            $('#regForm').each(function(){
+              this.reset();
+            });
+            alert('报名成功');
+          } else {
+            alert(json.info);
+          }
+        }, 'json');
+      },
+      errorPlacement: function(error, element) { 
+        //error.insertAfter(element); 
+        //alert(1);
+        //console.log(element.attr("type"));
+        if(element.attr("type") == 'radio' || element.attr("type") == 'checkbox'){
+          error.appendTo(element.parent().parent()); 
+        }else {
+          error.appendTo(element.parent()); 
+        }
+      },
+      errorClass: 'crm_signup_tip'
+    });
+    jQuery.extend(jQuery.validator.messages, {
+        required: "必填字段",
+        remote: "请修正该字段",
+        email: "请输入正确格式的电子邮件",
+        url: "请输入合法的网址",
+        date: "请输入合法的日期",
+        dateISO: "请输入合法的日期 (ISO).",
+        number: "请输入合法的数字",
+        digits: "只能输入整数",
+        creditcard: "请输入合法的信用卡号",
+        equalTo: "请再次输入相同的值",
+        accept: "请输入拥有合法后缀名的字符串",
+        maxlength: jQuery.validator.format("请输入一个长度最多是 {0} 的字符串"),
+        minlength: jQuery.validator.format("请输入一个长度最少是 {0} 的字符串"),
+        rangelength: jQuery.validator.format("请输入一个长度介于 {0} 和 {1} 之间的字符串"),
+        range: jQuery.validator.format("请输入一个介于 {0} 和 {1} 之间的值"),
+        max: jQuery.validator.format("请输入一个最大为 {0} 的值"),
+        min: jQuery.validator.format("请输入一个最小为 {0} 的值")
+    });
+    //ie下jquery.validate的date验证有问题，在此重写下方法
+    jQuery.validator.methods.date = function (value, element){
+        return this.optional(element) || (/^[0-9]{4}-[0-1][0-9]{1}-[0-3][0-9]{1}$/.test(value));
+    }
+</script>
+</head>
+<body>
+  <script type="text/javascript">
+//<![CDATA[
+  var rules = {};
+  var messages = {};
+  
+//]]>
+</script>  <style type="text/css">
+  .crm_signup_explain { display: none }
+  .crm_signup_tle { padding: 15px; margin-bottom: 30px; font-size: 14px; text-align: center; }
+  .crm_signup { background: #33CCCC } /* 背景色 */
+  .crm_signup { width: 500px; } /* 整体宽度 默认居左 */
+  /* .crm_signup { float: left } 居左 */
+  .crm_signup { margin: 0 auto; } /* 居中 */
+  /* .crm_signup { float: right }  居右 */
+  .crm_signup { color: #000000} /* 文字颜色 */
+  .lable_csf { font-size: 12px; } /* lab字号 */
+  .lable_csf { width:  100px; } /* lab宽度 */
+  .ipt_crm_signup,.crm_wp86 { width: 200px; } /* 文本框、下来列表宽度 */
+  .crm_signup_tle,.crm_signup { border: solid 1px #ddd } /* 有边框 */
+  /*  .crm_signup_tle,.crm_signup { border: none }  无边框 */
+</style>
+  <form class="regForm" id="regForm" action="/event/register" method="POST" style="">
+  <div class="crm_signup">
+        <div class="crm_signup_tle"> 
+      <span>【万家观影团】《夏洛特烦恼》观影报名</span>
+    </div><!-- #crm_signup_tle -->
+                <input type="hidden" name="id" id="event_id" value="4971" />
+    <!-- #crm_signup_exp -->
+    <div class="crm_signup_form"> 
+      <ul class="">
+                <li>
+          <label class="lable_csf"><span class="crm_required">*</span>手机号</label>
+          <div class="crm_signup_form_c"> 
+                    <script type="text/javascript">
+//<![CDATA[
+$.validator.addMethod("mobile", function(value, element) {
+  return this.optional(element) || /^1[34578]\d{9}$/.test(value);
+}, "手机号必须是以13、14、15或18开头的11位数字");
+
+rules.mobile = {
+  required: true,
+  mobile: true
+};
+
+//]]>
+</script><input type="text" name="mobile" id="mobile" class="ipt_crm_signup" />                      <!-- <span class="crm_signup_tip">错误提示</span>-->
+            <!-- 错误报警：文本框添加ipt_crm_signup_err  -->
+          </div><!-- #crm_signup_form_c -->
+          
+        </li>
+                <li>
+          <label class="lable_csf"><span class="crm_required">*</span>姓名</label>
+          <div class="crm_signup_form_c"> 
+                    <script type="text/javascript">
+//<![CDATA[
+rules.name = 'required';
+
+//]]>
+</script><input type="text" name="name" class="ipt_crm_signup"/>                      <!-- <span class="crm_signup_tip">错误提示</span>-->
+            <!-- 错误报警：文本框添加ipt_crm_signup_err  -->
+          </div><!-- #crm_signup_form_c -->
+          
+        </li>
+                <li>
+          <label class="lable_csf">电子邮箱</label>
+          <div class="crm_signup_form_c"> 
+                    <script type="text/javascript">
+//<![CDATA[
+rules.email = {
+  required: false,
+  email: true
+};
+messages.email = '请输入有效的电子邮箱';
+
+//]]>
+</script><input type="text" class="ipt_crm_signup" name="email" value="邮箱主要用来发送活动通知" onclick="this.value = ''"/>                      <!-- <span class="crm_signup_tip">错误提示</span>-->
+            <!-- 错误报警：文本框添加ipt_crm_signup_err  -->
+          </div><!-- #crm_signup_form_c -->
+          
+        </li>
+                <li>
+          <label class="lable_csf">性别</label>
+          <div class="crm_signup_form_c"> 
+                    <script type="text/javascript">
+//<![CDATA[
+rules.gender = {
+  required: false};
+
+//]]>
+</script><label class="ipt_crm_out"><input type="radio" name="gender" value="male" />男</label><label class="ipt_crm_out"><input type="radio" name="gender" value="female" />女</label>                      <!-- <span class="crm_signup_tip">错误提示</span>-->
+            <!-- 错误报警：文本框添加ipt_crm_signup_err  -->
+          </div><!-- #crm_signup_form_c -->
+          
+        </li>
+                <li>
+          <label class="lable_csf">年龄</label>
+          <div class="crm_signup_form_c"> 
+                    <script type="text/javascript">
+//<![CDATA[
+rules.age = {
+  required: false,
+  digits: true,
+  maxlength: 3,
+  max: 100
+};
+
+//]]>
+</script><input type="text" class="ipt_crm_signup" name="age" />                      <!-- <span class="crm_signup_tip">错误提示</span>-->
+            <!-- 错误报警：文本框添加ipt_crm_signup_err  -->
+          </div><!-- #crm_signup_form_c -->
+          
+        </li>
+                <li>
+          <label class="lable_csf">备注</label>
+          <div class="crm_signup_form_c"> 
+                    <script type="text/javascript">
+//<![CDATA[
+rules.remark = {
+  required: false,
+};
+
+//]]>
+</script><input type="text" class="ipt_crm_signup" name="remark" />                      <!-- <span class="crm_signup_tip">错误提示</span>-->
+            <!-- 错误报警：文本框添加ipt_crm_signup_err  -->
+          </div><!-- #crm_signup_form_c -->
+          
+        </li>
+                      </ul>
+      <div class="crm_signup_tac">
+                <input type="submit" value="提交报名" class="btn_crm_signup">
+              </div>
+          </div><!-- #crm_signup_form -->
+  </div><!-- #crm_signup -->
+    </form>
+  <script type="text/javascript">
+//<![CDATA[
+  $().ready(function() {
+    $("#regForm").validate({
+      rules: rules,
+      messages: messages
+    });
+    
+    /*
+    var inputs = $('#regForm :input');
+    inputs.each(function() {
+      if ($(this).attr('name') != 'mobile' && $(this).attr('name') != 'id') {
+        $(this).attr("disabled", "disabled");
+      }
+    }); 
+    */
+    
+    //if(show == 'normal'){
+      //$('input[name=mobile]').focus();
+    //}
+    $('input[name=mobile]').blur(function() {
+      if ($(this).valid()) {
+        $.post('/event/loadByMobile', {mobile: $(this).val(), id: $('#event_id').val()}, function(json) {
+          $('input[name=mobile]').unbind('blur');
+          /*
+          inputs.each(function() {
+            if(!$(this).is(":hidden")){
+              $(this).removeAttr("disabled");
+            }
+          }); 
+          */
+          if (json.success) {
+            var patt_id = new RegExp("\\w+_id");
+            $.each(json.data, function(key, value) {
+              if (!patt_id.test(key)) {
+                if (key == 'tags') {
+                  $("textarea[name=" + key + "]").val(value);
+                } else if ($("input[name=" + key + "]").length) {
+                  $("input[name=" + key + "]").val(value);
+                } else if ($("select[name=" + key + "]").length) {
+                  $("select[name=" + key + "]").val(value);
+                }
+              }
+            });
+          }
+        }, 'json');
+      }
+    });
+  });
+  
+//]]>
+</script></body>
+</html>
