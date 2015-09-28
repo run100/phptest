@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>javascript object</title>
+</head>
+<body>
+<script type="text/javascript">
+  var obj = {
+    x:1,
+    get r(){ return 5; },
+    set r(newvalue){ this.x = newvalue }
+  };
+
+  console.log(delete obj.x);
+  console.log(delete obj.b);
+</script>
+</body>
+</html>
