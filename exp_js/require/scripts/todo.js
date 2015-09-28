@@ -5,6 +5,8 @@
       jquery: 'jquery.min',
       underscore: 'underscore.min',
       backbone: 'backbone.min',
+      bbstorage: 'backbone.localStorage',
+      json :　'json2',
       td: 'td'
     },
     shim: {
@@ -14,11 +16,15 @@
 　　　　　　'backbone': {
 　　　　　　　　deps: ['underscore', 'jquery'],
 　　　　　　　　exports: 'Backbone'
-　　　　　　}
+　　　　　　},
+          bbstorage: {
+            deps: ['underscore', 'Backbone', 'jquery'],
+            exports: 'bbstorage'
+          }
 　　}
   });
 
-  require(['jquery', 'underscore', 'backbone', 'td'], function($, _, backbone, td){
-    console.log(111);
+  require(['jquery', 'underscore', 'backbone', 'json', 'bbstorage', 'td'], function($, _, json,bbstorage, backbone, td){
+    console.log('todo.js');
   });
 })(window);
