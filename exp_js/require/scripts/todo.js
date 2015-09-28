@@ -5,7 +5,7 @@
       jquery: 'jquery.min',
       underscore: 'underscore.min',
       backbone: 'backbone.min',
-      page: 'page'
+      td: 'td'
     },
     shim: {
 　　　　　 'underscore':{
@@ -18,7 +18,7 @@
 　　}
   });
 
-  require(['jquery', 'underscore', 'backbone', 'page'], function($, _, backbone, page){
-
+  require(['jquery', 'underscore', 'backbone', 'td'], function($, _, backbone, td){
+    console.log(111);
   });
 })(window);
