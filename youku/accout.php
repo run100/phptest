@@ -20,12 +20,14 @@ $post = array(
   'password' => 'xiaoling',
 );
 
-$ch = curl_init("https://openapi.youku.com/v2/oauth2/authorize");
+
+$ch = curl_init("https://openapi.youku.com/v2/oauth2/token");
 curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
 $html = curl_exec($ch);
 
+echo '<pre>';
 print_r($html);
