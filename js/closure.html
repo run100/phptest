@@ -1,0 +1,49 @@
+<html>
+<script>
+
+var m =  (function(){
+    var a = {};
+    a.add = function(){
+        return 1+2;
+    }
+    return a;
+})() ;
+
+console.log(m.add());
+
+function fouter(op)
+{
+   var outerp = 'outerp';
+   function finner(ip){
+       var innerp = 'innerp';
+       console.log(innerp+' '+outerp+' '+ip+' '+op);
+   }   
+   return finner;
+}
+//var fclosure = fouter('op');
+//fclosure('ip');
+
+function mixfun(arr){
+    var rs = [];
+    var i,n;
+    n = arr.length;
+    for (i=0;i<n;i++) {
+        (function(j){
+            rs[i] = function(){
+                console.log('for j is '+j);
+                return arr[j];
+            }
+        })(i)        
+    }
+    
+    return rs;
+}
+
+var mixcall = mixfun([10, 20, 30]);
+/*var f = mixcall[0];
+console.log(f());
+console.log(mixcall[0]());
+console.log(mixcall[1]());
+console.log(mixcall[2]()); */
+</script>
+</html>
