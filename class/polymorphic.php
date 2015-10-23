@@ -26,17 +26,19 @@ class coder extends employee
   }
 }
 
-function do_print($obj)
+
+
+/*function do_print($obj)
 {
+  echo get_class($obj), ':';
   if ( get_class($obj) == 'employee' ) {
-    echo 'error,基类';
+    echo 'error,基类', PHP_EOL;
   } else {
-    $obj->woring();
+    //$obj->woring();
     call_user_method('working', $obj);
   }
 }
 
-
-do_print(new teacher);
-do_print(new coder);
-do_print(new employee);
+do_print(new teacher());
+do_print(new coder());
+do_print(new employee());*/
